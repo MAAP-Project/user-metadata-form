@@ -11,7 +11,8 @@
   </head>
   <body>
     <div class="grid-wrapper">
-      <div class="form">
+      <form method="POST" action="" class="form_" data-parsley-validate>
+        <div class="form">
       	<h2>MAAP Data Provider Questionnaire</h2>
       	<p>Unique Identifier</p><span>cf6ffd4b-b6ea-4e00-b5c1-34ec74105257</span>
 
@@ -45,8 +46,8 @@
 
       	<span class="progress"></span>
 
-      	<div class="panels">
-      		<div data-panel="one">
+
+      		<div class="form-section" data-panel="one">
       			<h3>Overview</h3>
             <p>Before a dataset is ingested into the Pilot MAAP, the data provider is required to fill out this questionnaire. Information provided in this questionnaire will be used to create metadata for the dataset. This form consists of multiple pages containing questions organized by topic. Data providers are required to complete most questions in order for the MAAP publication process to occur.</p>
             <p>Asterisks in the questionnaire indicate required questions. Please note that the more information provided, the more complete the metadata will be.</p>
@@ -56,10 +57,11 @@
             <p>Please provide your name and contact information</p>
             <div class="form-group">
               <label for="fullName">Full Name</label>
-        			<input type="text" placeholder="Name" id="fullName" required />
+        			<input type="text" placeholder="Name" id="fullName" required="required" />
             </div>
       		</div>
-      		<div data-panel="two">
+
+      		<div class="form-section" data-panel="two">
       			<h3>Collection Information</h3>
             <p>Please provide a descriptive formal title of your dataset. Be sure to spell out any acronyms and minimize the use of special characters. The title should follow a mixed case capitalization scheme.</p>
             <div class="form-group">
@@ -87,7 +89,7 @@
 
       		</div>
 
-      		<div data-panel="three">
+      		<div class="form-section" data-panel="three">
       			<h3>Quality</h3>
             <p>Please provide any additional information on quality, data quality flags, known errors or other uncertainties that may be helpful to a user of the data.</p>
             <div class="form-group">
@@ -96,14 +98,14 @@
             </div>
       		</div>
 
-      		<div data-panel="four">
+      		<div class="form-section" data-panel="four">
       			<h3>Descriptive Keywords</h3>
             <select name="quality" id="quality">
               <option value="Science Keywords">Science Keywords</option>
             </select>
       		</div>
 
-      		<div data-panel="five">
+      		<div class="form-section" data-panel="five">
       			<h3>Temporal Information</h3>
 
             <p>Provide the start date and time of the dataset in UTC time.</p>
@@ -114,7 +116,7 @@
               </div>
               <div class="form-group">
                 <label for="BeginningTime">Beginning Time</label>
-                <input type="time" id="BeginningTime" step="1" required  min="00:00" max="24:00" required  />
+                <input type="time" id="BeginningTime" step="1" required  />
               </div>
             </div>
 
@@ -126,7 +128,7 @@
               </div>
               <div class="form-group">
                 <label for="EndingTime">Beginning Time</label>
-                <input type="time" id="EndingTime" step="1" required min="00:00" max="24:00" required />
+                <input type="time" id="EndingTime" step="1" required />
               </div>
             </div>
 
@@ -134,8 +136,12 @@
             <p>Which of the following best describes the spatial nature of your data?</p>
             <div class="form-group">
               <label for="granuleSpatial">Granule Spatial Representation</label>
-              <select name="granuleSpatial" id="granuleSpatile">
+              <select name="granuleSpatial" id="granuleSpatile" required>
                 <option value="">Select from the options below</option>
+                <option value="Cartesian">Cartesian</option>
+                <option value="Geodetic">Geodetic</option>
+                <option value="Orbit">Orbit</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
@@ -143,34 +149,41 @@
             <div class="form__cluster">
               <div class="form-group">
                 <label for="bbox-n">N</label>
-                <input type="number" name="bbox-n" id="bbox-n" required >
+                <input type="number" name="bbox-n" id="bbox-n" min="-90.0" max="90.0" step="0.1" required >
               </div>
               <div class="form-group">
                 <label for="bbox-e">E</label>
-                <input type="number" name="bbox-e" id="bbox-e" required >
+                <input type="number" name="bbox-e" id="bbox-e" min="-180.0" max="180.0" required >
               </div>
               <div class="form-group">
                 <label for="bbox-s">S</label>
-                <input type="number" name="bbox-s" id="bbox-s" required >
+                <input type="number" name="bbox-s" id="bbox-s" min="-90.0" max="90.0" required >
               </div>
               <div class="form-group">
                 <label for="bbox-w">W</label>
-                <input type="number" name="bbox-w" id="bbox-w" required >
+                <input type="number" name="bbox-w" id="bbox-w" min="-180.0" max="180.0" required >
               </div>
             </div>
       		</div>
 
-      		<div data-panel="six">
+      		<div class="form-section" data-panel="six">
       			<h3>Data Contacts</h3>
       			<input type="text" placeholder="Comment" />
       		</div>
-      	</div>
 
-      	<a class="button">Next</a>
+          <div class="form-navigation">
+           <button type="button" class="button previous btn btn-info pull-left">&lt; Previous</button>
+           <button type="button" class="button next btn btn-info pull-right">Next &gt;</button>
+           <input type="submit" class="button btn btn-default pull-right">
+          </div>
+
+
 
       </div>
+      </form>
     </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="app.js"></script>
+  <script src="parsley.min.js"></script>
 </html>

@@ -75,6 +75,7 @@ a.external:visited {
   text-decoration: underline dotted var(--color-link-visited);
 }
 
+button.button,
 a.button {
   display: inline-block;
   font-family: "Ropa Sans";
