@@ -1,0 +1,28 @@
+<% http_verb, path = form_path(questionnaire, current_resource, 'collection_info') %>
+<p class='lead'>
+  Unique Identifier: <%= questionnaire.uuid %>
+</p>
+<%= simple_form_for(current_resource, as: :collection_info, method: http_verb, url: path, remote: true)   do |f| %>
+  <legend>
+    Collection Information
+  </legend>
+  <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
+    <%= f.input :title, label:'Title', hint:'Please provide a descriptive formal title of your dataset. Be sure to spell out any acronyms and minimize the use of special characters. The title should follow a mixed case capitalization scheme. Important elements about the data may be included, such as: parameters measured, geographic location, instrument, project, temporal coverage.', required: true %>
+  <div class='form-row'>
+    <div class='col-md-6'>
+      <%= f.input :short_title, label:'Short Title', hint:'Please provide a shortname for your dataset, which is an abbreviated version of the title. The shortname should be less than 85 characters with no spaces.', placeholder: 'FIFE_RAIN_30M_2', required: true %>
+    </div>
+  </div>
+  <div class='form-row'>
+    <div class='col-md-2'>
+      <%= f.input :version, label:'Version Number', hint:'What is the version number of your dataset?', required: true %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.input :version_description, label:'Version Description', hint:'Please provide a brief explanation of the version. Note any limitations of the current version and whether there are plans to release a new version in the near future.' %>
+    </div>
+  </div>
+    <%= f.input :abstract, label:'Abstract', hint: 'Provide a description, or abstract, of your data. The abstract should summarize the dataset and should provide information that is both useful to the science community but also approachable for a first time user of the data.', required: true, type: :text_area, maxlength: 700 %>
+
+  <br>
+  <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
+<% end %>

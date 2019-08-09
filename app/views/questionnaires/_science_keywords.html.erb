@@ -1,0 +1,75 @@
+<!-- ScienceKeyword [r] -->
+<fieldset class="eui-accordion is-closed" id="science-keywords">
+  <div class="eui-accordion__header">
+    <h3 class="eui-accordion__title eui-required-o">Science Keywords</h3>
+    <%= mmt_help_icon(
+      title: 'Science Keywords',
+      help: 'properties/ScienceKeywords',
+      help_url: 'Science+Keywords'
+    ) %>
+    <div class="eui-accordion__icon" tabindex="0">
+      <i class="eui-icon eui-fa-chevron-circle-down"></i>
+      <span class="eui-sr-only">Toggle Science Keywords</span>
+    </div>
+  </div>
+  <div class="eui-accordion__body">
+    <div class="row taller">
+      <div class="col-12">
+        <div class="row sub-fields">
+          <div class="selected-science-keywords science-keywords">
+            <ul>
+              <% science_keywords = draft.draft['ScienceKeywords'] || [] %>
+              <% science_keywords.each_with_index do |science_keyword, index| %>
+                <li>
+                  <%= keyword_string(science_keyword) %>
+                  <a class="remove">
+                    <i class="fa fa-times-circle"></i>
+                    <span class="is-invisible">Remove <%= keyword_string(science_keyword) %></span>
+                  </a>
+                  <%= hidden_field_tag("draft[science_keywords][#{index}][category]", science_keyword.fetch('Category', '')) %>
+                  <%= hidden_field_tag("draft[science_keywords][#{index}][topic]", science_keyword.fetch('Topic', '')) %>
+                  <%= hidden_field_tag("draft[science_keywords][#{index}][term]", science_keyword.fetch('Term', '')) %>
+                  <%= hidden_field_tag("draft[science_keywords][#{index}][variable_level_1]", science_keyword.fetch('VariableLevel1', '')) %>
+                  <%= hidden_field_tag("draft[science_keywords][#{index}][variable_level_2]", science_keyword.fetch('VariableLevel2', '')) %>
+                  <%= hidden_field_tag("draft[science_keywords][#{index}][variable_level_3]", science_keyword.fetch('VariableLevel3', '')) %>
+                  <%= hidden_field_tag("draft[science_keywords][#{index}][detailed_variable]", science_keyword.fetch('DetailedVariable', '')) %>
+                </li>
+              <% end %>
+            </ul>
+            <p><%= hidden_field_tag("draft[science_keywords][#{Time.now.to_i}]", "") %></p>
+          </div>
+          <div class="eui-nested-item-picker">
+            <ul class="eui-item-path">
+              <li class="list-title">
+                <a href="javascript:void(0);">Science Keyword</a>
+              </li>
+            </ul>
+            <div class="eui-item-list-pane">
+              <ul>
+                <li>
+                  <%= text_field_tag 'science-keyword-search', nil, name: nil, class: 'typeahead', placeholder: 'Search for keywords...' %>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="actions">
+            <button type="button" class="eui-btn--blue add-science-keyword" disabled><i class="fa fa-plus-circle"></i> Add Keyword</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<% http_verb, path = form_path(questionnaire, current_resource, 'dataset') %>
+<p class='lead'>
+  Unique Identifier: <%= questionnaire.uuid %>
+</p>
+<%= simple_form_for(current_resource, as: :dataset, method: http_verb, url: path, remote: true)   do |f| %>
+  <p class="lead">
+    Descriptive Keywords
+  </p>
+  <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
+
+  <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
+<% end %>

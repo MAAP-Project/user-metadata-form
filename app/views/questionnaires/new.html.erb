@@ -1,0 +1,67 @@
+<div class='row'>
+  <div class='jumbotron jumbotron-fluid col-md-12'>
+    <div class='container'>
+      <div class="row">
+        <div class="loader_holder col-lg-12 hidden">
+          <div class="loader"></div>
+        </div>
+      </div>
+      <h1>MAAP User Shared Data Questionnaire</h1>
+      <hr/>
+      <div class="details_holder <%= 'hidden' if @hide_form %>">
+        <p class="lead">
+          Before a dataset is ingested into the Pilot MAAP, the data provider is required to fill out this questionnaire. Information provided in this questionnaire will be used to create metadata for the dataset. This form consists of multiple pages containing questions organized by topic. Data providers are required to complete most questions in order for the MAAP publication process to occur.
+        </p>
+        <p class='lead'>
+          Asterisks in the questionnaire indicate required questions. Please note that the more information provided, the more complete the metadata will be.
+        </p>
+        <p class='lead'>
+          A unique identifier will be provided for each new record. Please save the number to refer back to the questionnaire you are filling.
+        </p>
+        <p class='lead'>
+          You may contact the MAAP data team with any questions you may have about the form to
+          <a href="mailto:kaylin.m.bugbee@nasa.gov">Kaylin</a>.
+        </p>
+        <hr/>
+        <div class='form-row' align='center'>
+          <div class='form-group col-md-5'>
+            <button class='button button-green btn btn-lg btn-success btn_start float-right' align='center'>
+              Start New
+            </button>
+          </div>
+          <div class='form-group col-md-1'>
+            <p class='lead'>
+              OR
+            </p>
+          </div>
+          <div class='form-group col-md-5'>
+            <button class='button btn btn-lg btn-primary btn_edit float-left' align='center'>
+              Edit existing
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="form_holder <%= 'hidden' if not(@hide_form) %>">
+        <%= render @partial, questionnaire: @questionnaire, current_resource: @current_resource, previous_partial: @previous_partial %>
+      </div>
+      <div class="edit_holder hidden">
+        <div class='form-row'>
+          <div class='form-group col-md-6'>
+            <label>
+              Unique Identifier:.*.
+            </label>
+            <input type="text" name="questionnaire_uuid" class='questionnaire_uuid' required></input>
+          </div>
+          <div class='form-group col-md-2'>
+            <btn class='button btn btn-primary btn-sm float-right btn_find disabled' disabled> Find Record </btn>
+          </div>
+          <div class='form-group col-md-1'>
+            <btn class='button btn btn-danger btn-sm btn_back'> Go Back </btn>
+          </div>
+          <div class='form-group col-md-1 hidden'>
+            <btn class='button btn btn-danger btn-sm btn_clone'> Clone </btn>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

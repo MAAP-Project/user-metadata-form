@@ -1,0 +1,31 @@
+<table class='table'>
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        Filled by
+      </th>
+      <th>
+        Filled Date
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questionnaires.each do |questionnaire| %>
+      <tr>
+        <td>
+          <%= link_to questionnaire.uid, questionnaire_path(id: questionnaire.uid, format: 'json') %>
+        </td>
+        <td>
+          <%= questionnaire.filled_by %>
+        </td>
+        <td>
+          <%= questionnaire.updated_at %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>

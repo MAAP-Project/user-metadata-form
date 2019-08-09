@@ -1,0 +1,11 @@
+default: &default
+  mmt_url: http://localhost:3001/api/collections
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  mmt_url: https://mmt.maap-project.org/api/collections

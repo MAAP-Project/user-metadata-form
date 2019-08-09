@@ -1,0 +1,14 @@
+$('.form_holder').html("<%= j render(partial: @partial, locals: { questionnaire: @questionnaire, current_resource: @current_resource, previous_partial: @previous_partial } )%>");
+
+$('.select').select2();
+$('.tool_tip').tooltip();
+$('.remove_fields:first, .remove_nested_fields_link:first').remove();
+$('.instrument_fields:first').find('.remove_fields:first').hide();
+
+
+// handle this later
+$(document).on('click', '.add_nested_fields_link', () => {
+  $('.role_select').select2();
+});
+
+$('.loader_holder').addClass('hidden');

@@ -1,0 +1,25 @@
+<div class='form_footer'>
+  <button class='button btn btn-lg previous_btn' data-questionnaire_id="<%= questionnaire.id %>" data-previous_partial="<%= previous_partial %>">Previous</button>
+  <% if previous_partial == 'platforms' %>
+    <% label = 'Finish' %>
+    <% class_name = 'finish_btn' %>
+  <% else %>
+    <% label = 'Next' %>
+    <% class_name = nil %>
+  <% end %>
+  <%  previous_partial == 'platforms' ? 'Finish' : 'Next' %>
+  <div class="modal fade confirmation_modal" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>Once submitted you will not be able to make changes to your responses. Do you want to proceed?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="button btn" data-dismiss="modal">Cancel</button>
+          <%= form.button :submit, label, { class: "button btn next_btn modal_btn" } %>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <%= form.button :submit, label, { class: "button btn btn-lg next_btn #{class_name}" } %>
+</div>

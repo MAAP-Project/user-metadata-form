@@ -1,0 +1,18 @@
+<% http_verb, path = form_path(questionnaire, current_resource, 'questionnaire') %>
+<% questionnaire_uid = questionnaire.uuid %>
+<p class='lead'>
+  Unique Identifier: <%= questionnaire_uid %>
+</p>
+<%= simple_form_for(questionnaire, as: :questionnaire, method: http_verb, url: path, remote: true)   do |f| %>
+  <legend>Please provide your name and contact information.</legend>
+  <%= f.input :uid, as: :hidden, input_html: { value: questionnaire_uid } %>
+  <div class='form-row'>
+    <div class='form-group col-md-6'>
+      <%= f.input :user_name, label: 'Full Name', placeholder: 'Eg. John Doe', required: true %>
+    </div>
+    <div class='form-group col-md-6'>
+      <%= f.input :user_email, label: 'E-mail', placeholder: 'user@domain.com', required: true %>
+    </div>
+  </div>
+  <%= f.button :submit, 'Next', { class: 'btn btn-primary next_btn' } %>
+<% end %>

@@ -1,0 +1,29 @@
+<% http_verb, path = form_path(questionnaire, current_resource, 'spatial_extent') %>
+<p class='lead'>
+  Unique Identifier: <%= questionnaire.uuid %>
+</p>
+<%= simple_form_for(current_resource, as: :spatial_extent, method: http_verb, url: path, remote: true)   do |f| %>
+  <p class='lead'>
+    Spatial Extent
+  </p>
+  <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
+  <%= f.label :granule_spatial_select, "Which of the following best describes the spatial nature of your data?" %>
+  <%= f.select :granule_spatial_select, [["Cartesian", 1], ["Geodetic", 2], ["Orbit", 3], ["Other", 4]], required: true %>
+
+  <%= f.label :bounding_box_north, "Please provide the northern/southern/eastern/western extent (latitude/latitude/longitude/longitude) of your dataset in decimal degrees." %>
+  <div class='row'>
+    <div class='col-md-4'>
+      <%= f.input :bounding_box_north, label: 'North' %>
+    </div>
+    <div class='col-md-4'>
+      <%= f.input :bounding_box_south, label: 'South' %>
+    </div>
+    <div class='col-md-4'>
+      <%= f.input :bounding_box_east, label: 'East' %>
+    </div>
+    <div class='col-md-4'>
+      <%= f.input :bounding_box_west, label: 'West' %>
+    </div>
+  </div>
+  <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
+<% end %>

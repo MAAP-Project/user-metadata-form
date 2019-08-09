@@ -1,0 +1,90 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require bootstrap
+ *= require select2
+ *= require datatable
+ *= require_tree .
+ *= require_self
+*/
+
+body {
+  padding: 2%;
+}
+
+.hidden {
+  display: none;
+}
+
+.resource_btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.questionnaire_uuid {
+  width: 70%;
+}
+
+.variables_holder, .nested_fields, .nested-fields {
+  position: relative;
+}
+
+.platform_btn {
+  right: 50px;
+}
+
+.instrument_btn {
+  right: 50px;
+}
+
+.instrument_btn:nth-child(2) {
+  right: 0;
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+.error {
+  color: red;
+}
+
+.loader_holder {
+  position: absolute;
+  z-index: 3000;
+  height: 95%;
+  background: #eae6e8ad;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
