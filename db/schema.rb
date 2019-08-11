@@ -41,9 +41,9 @@ ActiveRecord::Schema.define(version: 2019_08_07_133930) do
 
   create_table "data_infos", force: :cascade do |t|
     t.bigint "questionnaire_id"
-    t.string "constraints"
+    t.string "format"
     t.float "size"
-    t.string "size_format"
+    t.string "constraints"
     t.string "compression_state"
     t.string "naming_convention_text"
     t.string "naming_convention"
@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 2019_08_07_133930) do
     t.string "description"
     t.string "doi"
     t.string "processing_level"
-    t.string "constraints"
     t.string "public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
