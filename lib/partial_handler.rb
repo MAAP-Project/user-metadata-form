@@ -1,6 +1,6 @@
 class PartialHandler
   FLOW = [
-           'questionnaire', 'collection_info', 'data_info', 'related_info', 'keywords', 'temporal_extent', 'spatial_extent'
+           'questionnaire', 'collection_info', 'data_info', 'related_info', 'keyword', 'temporal_extent', 'spatial_extent'
          ]
   PARTIAL_FORMAT = "%s_form"
   attr_accessor :params, :current_partial, :current_index, :camelized_partial,

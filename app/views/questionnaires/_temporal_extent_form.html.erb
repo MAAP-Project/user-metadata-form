@@ -8,10 +8,10 @@
   </p>
   <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
   <%= f.label :start_datetime, 'Provide the start date and time of the dataset in UTC time.' %>
-  <%= f.input :start_datetime, as: :datetime_field, html5: true, required: true %>
+  <%= f.datetime_select :start_datetime, label: false, html5: true, required: true %>
 
   <%= f.label :end_datetime, 'Provide the end date and time of the dataset in UTC time.' %>
-  <%= f.input :end_datetime, as: :datetime_field, html5: true, required: true %>
+  <%= f.datetime_select :end_datetime, label: false, html5: true, required: true %>
 
   <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
 <% end %>

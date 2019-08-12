@@ -62,13 +62,12 @@ json.data_info do
   json.size data_info&.data_size.present? ? data_info.data_size : 'N/A'
   json.compression_state data_info&.compression_state.present? ? data_info.compression_state : 'N/A'
   json.naming_convention_text data_info&.naming_convention_text.present? ? data_info.naming_convention_text : 'N/A'
-  json.naming_convention_urls data_info&.naming_convention_url.present? ? data_info.naming_convention_url : 'N/A'
 end
 
 json.temporal_extent do
   temporal_extent = questionnaire.temporal_extent
-  json.start_date temporal_extent&.start_date
-  json.end_date temporal_extent&.end_date
+  json.start_datetime temporal_extent&.start_datetime
+  json.end_datetime temporal_extent&.end_datetime
   json.ongoing temporal_extent&.ongoing
 end
 
@@ -94,6 +93,12 @@ json.spatial_extent do
 
 end
 
+json.keyword do
+  keyword = questionnaire.keyword
+  json.science_keywords keyword.science_keywords
+  json.ancillary_keywords keyword.ancillary_keywords
+end
+
 json.platforms do
   platforms = questionnaire.platforms || []
   json.array!(platforms) do |platform|
@@ -105,6 +110,7 @@ json.platforms do
     end
   end
 end
+
 json.related_info do
   related_info = questionnaire.related_info
   json.published_paper_urls related_info&.published_paper_url

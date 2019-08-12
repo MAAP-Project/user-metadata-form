@@ -1,10 +1,10 @@
 class TemporalExtent < ApplicationRecord
   PERMITTED_PARAMS = [
-                      :missing_explanation, :end_date, :start_date,
+                      :missing_explanation, :start_datetime, :end_datetime,
                       :questionnaire_id, :ongoing
                     ]
 
   belongs_to :questionnaire, required: false
 
-  validates_presence_of :start_date
+  validates_presence_of :start_datetime
 end

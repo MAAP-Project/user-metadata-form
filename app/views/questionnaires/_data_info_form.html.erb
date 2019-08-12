@@ -3,15 +3,15 @@
   Unique Identifier: <%= questionnaire.uuid %>
 </p>
 <%= simple_form_for(current_resource, as: :data_info, method: http_verb, url: path, remote: true)   do |f| %>
-  <div class='data_info_holder form-row '>
+  <div class='data_info_holder'>
     <legend>
       Data Identification
     </legend>
     <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
-    <%= f.input :format, label: 'What are the format(s) of your data files?', required: true %>
-    <%= f.label :size, 'What is the total size of your dataset?.*.' %>
-    <div class='row'>
+      <%= f.input :format, label: 'What are the format(s) of your data files?', required: true %>
+    <div class='form-row'>
       <div class='col-md-4'>
+        <%= f.label :size, 'What is the total size of your dataset?.*.' %>
         <%= f.input :size, label: false, required: true %>
       </div>
       <div class='col-md-4'>
@@ -20,30 +20,8 @@
       </div>
     </div>
 
-    <%= f.label :naming_convention, 'Please describe the file naming convention for this dataset, including an explanation of any abbreviations. If there is an existing document that explains the naming convention then you can provide a link or upload it here' %>
-    <div class='row'>
-      <div class='col-md-4'>
-        <%= f.input :naming_convention_text, label: false, required: true %>
-      </div>
-      <div class='col-md-2'>
-        <%= f.file_field :naming_convention, label: false %>
-      </div>
-    </div>
-    <% if current_resource.naming_convention_url %>
-      <div class='row'>
-        <div class='col-md-2'>
-          <p class='lead'>
-            Uploaded file
-          </p>
-        </div>
-        <div class='col-md-4'>
-          <%= link_to current_resource.naming_convention.file.filename, current_resource.naming_convention_url, target: '_blank' %>
-        </div>
-        <div class='col-md-1'>
-          <%= link_to 'X', files_questionnaire_path(id: questionnaire.id, current_partial: 'data_info', file_name: current_resource.naming_convention.file.filename), method: :delete, remote: true, class: 'btn btn-danger btn-sm btn_remove', title: 'Delete file' %>
-        </div>
-      </div>
-    <% end %>
+    <%= f.input :naming_convention, label: 'Naming Convention', hint: 'Please describe the file naming convention for this dataset, including an explanation of any abbreviations.' %>
+
     <%= f.label :quality_assurance, 'Please provide any additional information on quality, data quality flags, known errors or other uncertainties that may be helpful to a user of the data.' %>
     <%= f.input :quality_assurance, label: false, required: true %>
     <%# <%= f.input :constraints, label: 'Constraints', hint: 'Are there any constraints as to how the data may be used?' %>

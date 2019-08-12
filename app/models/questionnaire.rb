@@ -8,7 +8,7 @@ class Questionnaire < ApplicationRecord
 
   RELATIONS = [
                 'contact', 'project', 'dataset', 'data_info', 'temporal_extent',
-                'spatial_extent', 'related_info', 'collection_info'
+                'spatial_extent', 'related_info', 'collection_info', 'keyword'
               ]
 
   RELATIONS.each do |relation|

@@ -1,6 +1,6 @@
 CarrierWave.configure do |config|
   config.storage    = :aws
-  config.aws_bucket = 'pi-questionnaire'
+  config.aws_bucket = 'user-metadata-form'
   # config.aws_acl    = 'public-read'
 
   # # Optionally define an asset host for configurations that are fronted by a

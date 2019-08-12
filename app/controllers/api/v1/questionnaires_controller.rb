@@ -47,8 +47,8 @@ class Api::V1::QuestionnairesController < Api::V1::BaseController
   #   },
   #   temporal_extent: {
   #     missing_explanation: 'explaination for missing data',
-  #     end_date: 'end date yyyy-mm-dd',
-  #     start_date: 'start date yyyy-mm-dd',
+  #     end_datetime: 'end date yyyy-mm-dd',
+  #     start_datetime: 'start date yyyy-mm-dd',
   #     ongoing: 'boolean (true or false)'
   #   },
   #   spatial_extent: {
@@ -77,16 +77,16 @@ class Api::V1::QuestionnairesController < Api::V1::BaseController
   #     constraints: 'constraints on the data',
   #     public: 'is the data public or are there some restrictions to it'
   #   },
-  #   data_info: {{
+  #   data_info: {
   #     quality_assurance: 'quality assurance',
-  #     constraints: 'constraints',  
+  #     constraints: 'constraints',
   #     format: 'format of data',
   #     size: 'size of data',
   #     size_format: 'format of data',
   #     compression_state: 'what is the state of the data? (compressed or uncompressed or mixed) ?',
   #     naming_convention_text: 'Naming convention of the data files.',
   #     naming_convention: [ "FILEUPLOADS (accepts multiple files)." ]
-  #   }},
+  #   },
   #   related_info: {
   #     published_paper_url: 'url of the published paper',
   #     user_documentation_url: 'url to the documentation',
@@ -97,6 +97,10 @@ class Api::V1::QuestionnairesController < Api::V1::BaseController
   #     user_documentation: ["FILEUPLOADS (accepts multiple files)."],
   #     published_paper: ["FILEUPLOADS (accepts multiple files)."]
   #   },
+  #   keyword: {
+  #     science_keywords: 'keywords',
+  #     ancillary_keywords: 'keywords'
+  #  },
   #   platform: {
   #     agency: 'agency name',
   #     name: 'name of the platform',

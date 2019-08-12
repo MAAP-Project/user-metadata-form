@@ -1,16 +1,15 @@
-# PI Questionnaire
+# User Metadata Form
 
-Before a collection gets ingested into the Pilot MAAP, the data provider is required to fill out this [questionnaire](https://questionnaire.maap-project.org). This questionnaire will be used to populate metadata fields for the data set.
+This form serves a similar purpose to the original PI Questionnaire, but is focused on the user shared metadata workflow. Before a collection gets ingested into the Pilot MAAP, the data provider is required to fill out this for. This form will be used to populate metadata fields for the data set.
 
-![screenshot_1.jpg](./images/screenshot_1.png)
+This repo is a fork of /pi-questionnaire and the following Readme has not been changed.
 
-![screenshot.jpg](./images/screenshot.png)
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to [deploy](#deployment) the project on a live system.
 
-1. Clone this repo `git clone git@github.com:NASA-IMPACT/pi_questionnaire.git`
-2. `cd pi_questionnaire`
+1. Clone this repo `git clone git@github.com:NASA-IMPACT/user-metadata-form.git`
+2. `cd user-metadata-form`
 
 ### Prerequisites
 
@@ -42,7 +41,7 @@ Once all of the migration is complete, you can check if this is working or not b
 ## Deployment
 To deploy branches, we use [capistrano](https://capistranorb.com/) .
 
-**Note:** PI Questionnaire is a monolith app. As such, deployment in this context means copying over the code from the repository to the server and restart any dependent request handlers (in our case `unicorn`). Capistrano doesn't handle aws related actions, such as creating or tearing down of instances. This has to be done via aws console.
+**Note:** User Metadata Form is a monolith app. As such, deployment in this context means copying over the code from the repository to the server and restart any dependent request handlers (in our case `unicorn`). Capistrano doesn't handle aws related actions, such as creating or tearing down of instances. This has to be done via aws console.
 
 
 You would either need a `pem` file or have your ssh keys added to the server to be able to deploy.
