@@ -47,25 +47,16 @@ class Api::V1::QuestionnairesController < Api::V1::BaseController
   #   },
   #   temporal_extent: {
   #     missing_explanation: 'explaination for missing data',
-  #     end_datetime: 'end date yyyy-mm-dd',
-  #     start_datetime: 'start date yyyy-mm-dd',
+  #     end_date: 'end date yyyy-mm-dd',
+  #     start_date: 'start date yyyy-mm-dd',
   #     ongoing: 'boolean (true or false)'
   #   },
   #   spatial_extent: {
-  #     data_nature: 'nature of the data',
+  #     spatial_nature: 'nature of the data',
   #     bounding_box_north: 'northern coordinate of bb',
   #     bounding_box_south: 'southern coordinate of bb',
   #     bounding_box_east: 'eastern coordinate of bb',
   #     bounding_box_west: 'western coordinate of bb',
-  #     geolocated: 'boolean (true or false)',
-  #     spatial_resolution: 'spatial resolution',
-  #     insitus_attributes: [{
-  #       radius: 'coverage radius',
-  #       lon: 'center lon',
-  #       lat: 'center lat',
-  #       measurement: 'measurement',
-  #       name: 'name'
-  #     }]
   #   },
   #   dataset: {
   #     title: 'title',

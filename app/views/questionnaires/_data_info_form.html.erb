@@ -3,7 +3,7 @@
   Unique Identifier: <%= questionnaire.uuid %>
 </p>
 <%= simple_form_for(current_resource, as: :data_info, method: http_verb, url: path, remote: true)   do |f| %>
-  <div class='data_info_holder'>
+  <div class='data_info_holder' id="data_info" class="content" role="tabpanel" aria-labelledby="data_info_trigger">
     <legend>
       Data Identification
     </legend>

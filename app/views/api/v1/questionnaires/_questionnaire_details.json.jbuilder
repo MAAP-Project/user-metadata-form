@@ -66,37 +66,24 @@ end
 
 json.temporal_extent do
   temporal_extent = questionnaire.temporal_extent
-  json.start_datetime temporal_extent&.start_datetime
-  json.end_datetime temporal_extent&.end_datetime
+  json.start_date temporal_extent&.start_date
+  json.end_date temporal_extent&.end_date
   json.ongoing temporal_extent&.ongoing
 end
 
 json.spatial_extent do
   spatial_extent = questionnaire.spatial_extent
-  json.data_nature spatial_extent&.data_nature
+  json.spatial_nature spatial_extent&.spatial_nature
   json.bounding_box_north spatial_extent&.bounding_box_north
   json.bounding_box_south spatial_extent&.bounding_box_south
   json.bounding_box_east spatial_extent&.bounding_box_east
   json.bounding_box_west spatial_extent&.bounding_box_west
-  json.geolocated spatial_extent&.geolocated
-  json.spatial_resolution spatial_extent&.spatial_resolution
-
-  json.insitu do
-    json.array!(spatial_extent&.insitus || []) do |insitu|
-      json.name insitu&.name
-      json.center_lat insitu&.lat
-      json.center_lon insitu&.lon
-      json.radius insitu&.radius
-      json.measurement insitu&.measurement
-    end
-  end
-
 end
 
 json.keyword do
   keyword = questionnaire.keyword
-  json.science_keywords keyword.science_keywords
-  json.ancillary_keywords keyword.ancillary_keywords
+  json.science_keywords keyword&.science_keywords
+  json.ancillary_keywords keyword&.ancillary_keywords
 end
 
 json.platforms do

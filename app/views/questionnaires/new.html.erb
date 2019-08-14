@@ -7,6 +7,52 @@
         </div>
       </div>
       <h1>MAAP User Shared Data Questionnaire</h1>
+      <div class="bs-stepper">
+        <div class="bs-stepper-header" role="tablist">
+        <!-- your steps here -->
+          <div class="step" data-target="#collection_info">
+            <button type="button" class="step-trigger" role="tab" aria-controls="collection_info" id="collection_info_trigger" disabled>
+              <span class="bs-stepper-circle">1</span>
+              <span class="bs-stepper-label">Collection Information</span>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#data_info">
+            <button type="button" class="step-trigger" role="tab" aria-controls="data-info" id="data_info_trigger" disabled>
+              <span class="bs-stepper-circle">2</span>
+              <span class="bs-stepper-label">Data Information</span>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#related_info">
+            <button type="button" class="step-trigger" role="tab" aria-controls="related_info" id="related_info_trigger" disabled>
+              <span class="bs-stepper-circle">2</span>
+              <span class="bs-stepper-label">Related URLs</span>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#keywords">
+            <button type="button" class="step-trigger" role="tab" aria-controls="keywords" id="keywords_trigger" disabled>
+              <span class="bs-stepper-circle">2</span>
+              <span class="bs-stepper-label">Keywords</span>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#temporal_extent">
+            <button type="button" class="step-trigger" role="tab" aria-controls="temporal_extent" id="temporal_extent_trigger" disabled>
+              <span class="bs-stepper-circle">2</span>
+              <span class="bs-stepper-label">Temporal Extent</span>
+            </button>
+          </div>
+          <div class="line"></div>
+          <div class="step" data-target="#spatial_extent">
+            <button type="button" class="step-trigger" role="tab" aria-controls="spatial_extent" id="spatial_extent_trigger" disabled>
+              <span class="bs-stepper-circle">2</span>
+              <span class="bs-stepper-label">Spatial Extent</span>
+            </button>
+          </div>
+        </div>
+      </div>
       <hr/>
       <div class="details_holder <%= 'hidden' if @hide_form %>">
         <p class="lead">
@@ -53,10 +99,10 @@
             <input type="text" name="questionnaire_uuid" class='questionnaire_uuid' required></input>
           </div>
           <div class='form-group col-md-2'>
-            <btn class='button btn btn-primary btn-sm float-right btn_find disabled' disabled> Find Record </btn>
+            <button class='button btn btn-primary btn-sm float-right btn_find disabled' disabled> Find Record </button>
           </div>
           <div class='form-group col-md-1'>
-            <btn class='button btn btn-danger btn-sm btn_back'> Go Back </btn>
+            <button class='button btn btn-danger btn-sm btn_back'> Go Back </button>
           </div>
           <div class='form-group col-md-1 hidden'>
             <btn class='button btn btn-danger btn-sm btn_clone'> Clone </btn>
