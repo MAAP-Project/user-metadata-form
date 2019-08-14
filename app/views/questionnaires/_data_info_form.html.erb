@@ -3,15 +3,15 @@
   Unique Identifier: <%= questionnaire.uuid %>
 </p>
 <%= simple_form_for(current_resource, as: :data_info, method: http_verb, url: path, remote: true)   do |f| %>
-  <div class='data_info_holder form-row '>
+  <div class='data_info_holder' id="data_info" class="content" role="tabpanel" aria-labelledby="data_info_trigger">
     <legend>
       Data Identification
     </legend>
     <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
-    <%= f.input :format, label: 'What are the format(s) of your data files?', required: true %>
-    <%= f.label :size, 'What is the total size of your dataset?.*.' %>
-    <div class='row'>
+      <%= f.input :format, label: 'What are the format(s) of your data files?', required: true %>
+    <div class='form-row'>
       <div class='col-md-4'>
+        <%= f.label :size, 'What is the total size of your dataset?.*.' %>
         <%= f.input :size, label: false, required: true %>
       </div>
       <div class='col-md-4'>
@@ -19,16 +19,7 @@
         <%= f.select :format, DataInfo::SIZE_FORMAT, { include_blank: 'Select unit' }, { class: 'size_format_select select', required: true }  %>
       </div>
     </div>
-
-    <%= f.label :naming_convention, 'Please describe the file naming convention for this dataset, including an explanation of any abbreviations. If there is an existing document that explains the naming convention then you can provide a link or upload it here' %>
-    <div class='row'>
-      <div class='col-md-4'>
-        <%= f.input :naming_convention_text, label: false, required: true %>
-      </div>
-      <div class='col-md-2'>
-        <%= f.file_field :naming_convention, label: false %>
-      </div>
-    </div>
+    <%= f.input :naming_convention, label: 'Naming Convention', hint: 'Please describe the file naming convention for this dataset, including an explanation of any abbreviations.' %>
     <%= f.label :quality_assurance, 'Please provide any additional information on quality, data quality flags, known errors or other uncertainties that may be helpful to a user of the data.' %>
     <%= f.input :quality_assurance, label: false, required: true %>
     <%# <%= f.input :constraints, label: 'Constraints', hint: 'Are there any constraints as to how the data may be used?' %>

@@ -4,10 +4,11 @@
     <title>MAAP User Shared Data Questionnaire</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application', remote: true %>
     <%= javascript_include_tag :cocoon, remote: true %>
+
     <script type="text/template" id="qq-template-manual-trigger">
       <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
         <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
@@ -72,7 +73,6 @@
       </div>
     </script>
   </head>
-
   <body>
     <div class='container container-fluid'>
       <% flash.each do |key, value| %>

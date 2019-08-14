@@ -483,3 +483,6 @@ div.color-grey {
 legend {
   font-size: 1.25rem;
 }
+.bs-stepper .step-trigger {
+  font-size: 0.8rem;
+}

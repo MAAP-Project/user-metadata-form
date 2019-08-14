@@ -1,8 +1,8 @@
-<% http_verb, path = form_path(questionnaire, current_resource, 'dataset') %>
+<% http_verb, path = form_path(questionnaire, current_resource, 'keyword') %>
 <p class='lead'>
   Unique Identifier: <%= questionnaire.uuid %>
 </p>
-<%= simple_form_for(current_resource, as: :dataset, method: http_verb, url: path, remote: true)   do |f| %>
+<%= simple_form_for(current_resource, as: :keyword, method: http_verb, url: path, remote: true)   do |f| %>
   <p class="lead">
     Descriptive Keywords
   </p>
@@ -10,7 +10,7 @@
   <%= f.label :science_keywords, "Please select at least one science keyword from the following options:" %>
   <div class='row'>
     <div class='col-md-4'>
-      <%# <%= f.select :science_keywords, ScienceKeywords::DATA_KEYWORDS, { include_blank: 'Select a keyword' }, { class: 'science_keywords_select select', required: true }  %> %>
+      <%= f.select :science_keywords, Keyword::SCIENCE_KEYWORDS, { include_blank: 'Select a keyword' }, { class: 'science_keywords_select select', required: true }  %>
     </div>
   </div>
   <%= f.input :ancillary_keywords, label: 'Please provide any other keywords or phrases to further describe the data.' %>

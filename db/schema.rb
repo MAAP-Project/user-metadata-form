@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_07_133930) do
+ActiveRecord::Schema.define(version: 2019_08_12_135000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(version: 2019_08_07_133930) do
     t.bigint "platform_id"
     t.string "name"
     t.index ["platform_id"], name: "index_instruments_on_platform_id"
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.bigint "questionnaire_id"
+    t.string "science_keywords"
+    t.string "ancillary_keywords"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_id"], name: "index_keywords_on_questionnaire_id"
   end
 
   create_table "organization_catalogues", force: :cascade do |t|

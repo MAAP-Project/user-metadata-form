@@ -52,20 +52,11 @@ class Api::V1::QuestionnairesController < Api::V1::BaseController
   #     ongoing: 'boolean (true or false)'
   #   },
   #   spatial_extent: {
-  #     data_nature: 'nature of the data',
+  #     spatial_nature: 'nature of the data',
   #     bounding_box_north: 'northern coordinate of bb',
   #     bounding_box_south: 'southern coordinate of bb',
   #     bounding_box_east: 'eastern coordinate of bb',
   #     bounding_box_west: 'western coordinate of bb',
-  #     geolocated: 'boolean (true or false)',
-  #     spatial_resolution: 'spatial resolution',
-  #     insitus_attributes: [{
-  #       radius: 'coverage radius',
-  #       lon: 'center lon',
-  #       lat: 'center lat',
-  #       measurement: 'measurement',
-  #       name: 'name'
-  #     }]
   #   },
   #   dataset: {
   #     title: 'title',
@@ -77,16 +68,16 @@ class Api::V1::QuestionnairesController < Api::V1::BaseController
   #     constraints: 'constraints on the data',
   #     public: 'is the data public or are there some restrictions to it'
   #   },
-  #   data_info: {{
+  #   data_info: {
   #     quality_assurance: 'quality assurance',
-  #     constraints: 'constraints',  
+  #     constraints: 'constraints',
   #     format: 'format of data',
   #     size: 'size of data',
   #     size_format: 'format of data',
   #     compression_state: 'what is the state of the data? (compressed or uncompressed or mixed) ?',
   #     naming_convention_text: 'Naming convention of the data files.',
   #     naming_convention: [ "FILEUPLOADS (accepts multiple files)." ]
-  #   }},
+  #   },
   #   related_info: {
   #     published_paper_url: 'url of the published paper',
   #     user_documentation_url: 'url to the documentation',
@@ -97,6 +88,10 @@ class Api::V1::QuestionnairesController < Api::V1::BaseController
   #     user_documentation: ["FILEUPLOADS (accepts multiple files)."],
   #     published_paper: ["FILEUPLOADS (accepts multiple files)."]
   #   },
+  #   keyword: {
+  #     science_keywords: 'keywords',
+  #     ancillary_keywords: 'keywords'
+  #  },
   #   platform: {
   #     agency: 'agency name',
   #     name: 'name of the platform',

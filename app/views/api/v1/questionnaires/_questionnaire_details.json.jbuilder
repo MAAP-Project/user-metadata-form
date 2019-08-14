@@ -62,7 +62,6 @@ json.data_info do
   json.size data_info&.data_size.present? ? data_info.data_size : 'N/A'
   json.compression_state data_info&.compression_state.present? ? data_info.compression_state : 'N/A'
   json.naming_convention_text data_info&.naming_convention_text.present? ? data_info.naming_convention_text : 'N/A'
-  json.naming_convention_urls data_info&.naming_convention_url.present? ? data_info.naming_convention_url : 'N/A'
 end
 
 json.temporal_extent do
@@ -74,24 +73,17 @@ end
 
 json.spatial_extent do
   spatial_extent = questionnaire.spatial_extent
-  json.data_nature spatial_extent&.data_nature
+  json.spatial_nature spatial_extent&.spatial_nature
   json.bounding_box_north spatial_extent&.bounding_box_north
   json.bounding_box_south spatial_extent&.bounding_box_south
   json.bounding_box_east spatial_extent&.bounding_box_east
   json.bounding_box_west spatial_extent&.bounding_box_west
-  json.geolocated spatial_extent&.geolocated
-  json.spatial_resolution spatial_extent&.spatial_resolution
+end
 
-  json.insitu do
-    json.array!(spatial_extent&.insitus || []) do |insitu|
-      json.name insitu&.name
-      json.center_lat insitu&.lat
-      json.center_lon insitu&.lon
-      json.radius insitu&.radius
-      json.measurement insitu&.measurement
-    end
-  end
-
+json.keyword do
+  keyword = questionnaire.keyword
+  json.science_keywords keyword&.science_keywords
+  json.ancillary_keywords keyword&.ancillary_keywords
 end
 
 json.platforms do
@@ -105,6 +97,7 @@ json.platforms do
     end
   end
 end
+
 json.related_info do
   related_info = questionnaire.related_info
   json.published_paper_urls related_info&.published_paper_url
