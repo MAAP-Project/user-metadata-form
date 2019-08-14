@@ -13,6 +13,6 @@ class DataInfo < ApplicationRecord
     [self.size, self.format].join(',')
   end
 
-  validates_presence_of :format, :size, :size_format, :naming_convention_text,
+  validates_presence_of :format, :size, :naming_convention_text,
                         :quality_assurance
 end

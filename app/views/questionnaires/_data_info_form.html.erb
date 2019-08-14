@@ -16,7 +16,7 @@
       </div>
       <div class='col-md-4'>
         <%= f.label "Select unit: .*." %>
-        <%= f.select :size_format, DataInfo::SIZE_FORMAT, { include_blank: 'Select unit' }, { class: 'size_format_select select', required: true }  %>
+        <%= f.select :format, DataInfo::SIZE_FORMAT, { include_blank: 'Select unit' }, { class: 'size_format_select select', required: true }  %>
       </div>
     </div>
 
@@ -29,21 +29,6 @@
         <%= f.file_field :naming_convention, label: false %>
       </div>
     </div>
-    <% if current_resource.naming_convention_url %>
-      <div class='row'>
-        <div class='col-md-2'>
-          <p class='lead'>
-            Uploaded file
-          </p>
-        </div>
-        <div class='col-md-4'>
-          <%= link_to current_resource.naming_convention.file.filename, current_resource.naming_convention_url, target: '_blank' %>
-        </div>
-        <div class='col-md-1'>
-          <%= link_to 'X', files_questionnaire_path(id: questionnaire.id, current_partial: 'data_info', file_name: current_resource.naming_convention.file.filename), method: :delete, remote: true, class: 'btn btn-danger btn-sm btn_remove', title: 'Delete file' %>
-        </div>
-      </div>
-    <% end %>
     <%= f.label :quality_assurance, 'Please provide any additional information on quality, data quality flags, known errors or other uncertainties that may be helpful to a user of the data.' %>
     <%= f.input :quality_assurance, label: false, required: true %>
     <%# <%= f.input :constraints, label: 'Constraints', hint: 'Are there any constraints as to how the data may be used?' %>

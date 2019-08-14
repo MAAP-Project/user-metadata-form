@@ -7,8 +7,8 @@
     Spatial Extent
   </p>
   <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
-  <%= f.label :granule_spatial_select, "Which of the following best describes the spatial nature of your data?" %>
-  <%= f.select :granule_spatial_select, [["Cartesian", 1], ["Geodetic", 2], ["Orbit", 3], ["Other", 4]], required: true %>
+  <%= f.label :data_nature, "Which of the following best describes the spatial nature of your data?" %>
+  <%= f.select :data_nature, [["Cartesian", 1], ["Geodetic", 2], ["Orbit", 3], ["Other", 4]], required: true %>
 
   <%= f.label :bounding_box_north, "Please provide the northern/southern/eastern/western extent (latitude/latitude/longitude/longitude) of your dataset in decimal degrees." %>
   <div class='row'>
