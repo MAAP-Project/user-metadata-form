@@ -56,9 +56,8 @@ end
 
 json.data_info do
   data_info = questionnaire.data_info
-  variables = data_info&.variables || []
   json.quality_assurance data_info&.quality_assurance.present? ? data_info.quality_assurance : 'N/A'
-  json.constraints dataset&.constraints.present? ? dataset.constraints : 'N/A'
+  json.constraints data_info&.constraints.present? ? data_info.constraints : 'N/A'
   json.format data_info&.format.present? ? data_info.format : 'N/A'
   json.size data_info&.data_size.present? ? data_info.data_size : 'N/A'
   json.compression_state data_info&.compression_state.present? ? data_info.compression_state : 'N/A'
@@ -74,7 +73,7 @@ end
 
 json.spatial_extent do
   spatial_extent = questionnaire.spatial_extent
-  json.spatial_nature spatial_extent&.spatial_nature
+  json.data_nature spatial_extent&.data_nature
   json.bounding_box_north spatial_extent&.bounding_box_north
   json.bounding_box_south spatial_extent&.bounding_box_south
   json.bounding_box_east spatial_extent&.bounding_box_east
