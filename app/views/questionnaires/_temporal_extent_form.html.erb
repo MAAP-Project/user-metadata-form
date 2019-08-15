@@ -11,16 +11,10 @@
     <div class='col-md-4'>
       <%= f.input :start_date, as: :date, label: 'Start Date', html5: true, required: true %>
     </div>
-    <div class='col-md-4'>
-      <%= f.input :start_time, as: :time, label: 'Start Time', html5: true %>
-    </div>
   </div>
   <div class='row'>
     <div class='col-md-4'>
       <%= f.input :end_date, as: :date, label: 'End Date - if data collection is ongoing check the ‘Active Dataset’ box below and leave the End Date blank.', html5: true, input_html: { class: 'end_date_prompt' } %>
-    </div>
-    <div class='col-md-4'>
-      <%= f.input :end_time, as: :time, label: 'End Time', html5: true %>
     </div>
   </div>
 
