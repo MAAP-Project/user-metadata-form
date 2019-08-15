@@ -16,12 +16,10 @@
       </div>
       <div class='col-md-4'>
         <%= f.label "Select unit: .*." %>
-        <%= f.select :size_format, DataInfo::SIZE_FORMAT, { include_blank: 'Select unit' }, { class: 'size_format_select select', required: true }  %>
+        <%= f.select :format, DataInfo::SIZE_FORMAT, { include_blank: 'Select unit' }, { class: 'size_format_select select', required: true }  %>
       </div>
     </div>
-
     <%= f.input :naming_convention, label: 'Naming Convention', hint: 'Please describe the file naming convention for this dataset, including an explanation of any abbreviations.' %>
-
     <%= f.label :quality_assurance, 'Please provide any additional information on quality, data quality flags, known errors or other uncertainties that may be helpful to a user of the data.' %>
     <%= f.input :quality_assurance, label: false, required: true %>
     <%# <%= f.input :constraints, label: 'Constraints', hint: 'Are there any constraints as to how the data may be used?' %>

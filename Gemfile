@@ -57,6 +57,8 @@ gem 'nested_form_fields'
 
 gem 'simple_form'
 
+gem 'dotenv-rails'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-bootbox'

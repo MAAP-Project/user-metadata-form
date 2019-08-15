@@ -7,6 +7,12 @@ class CreateDraftJob < ApplicationJob
         {},
         ActionController::Base.new
       )
+
+    questionnaire = Questionnaire.where(id: questionnaire['id']).last
+    # Create the Cumulus collection
+    collection_info = questionnaire.collection_info
+    response = CumulusApi.create_cumulus_collection(collection_info)
+
     output = view.render(
         file: '_questionnaire_details.json.jbuilder',
         locals: { questionnaire: questionnaire }
@@ -16,6 +22,7 @@ class CreateDraftJob < ApplicationJob
         body: output,
         headers: { 'Content-Type': 'application/json' }
       )
+
     NotificationMailer.questionnaire_filled(
       uuid: questionnaire.uid
     ).deliver_now

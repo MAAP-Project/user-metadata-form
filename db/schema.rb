@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_12_135000) do
+ActiveRecord::Schema.define(version: 2019_08_14_223043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2019_08_12_135000) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "job_ids", default: [], array: true
     t.index ["questionnaire_id"], name: "index_collection_infos_on_questionnaire_id"
   end
 
@@ -43,7 +44,7 @@ ActiveRecord::Schema.define(version: 2019_08_12_135000) do
     t.bigint "questionnaire_id"
     t.string "format"
     t.float "size"
-    t.string "size_format"
+    t.string "constraints"
     t.string "compression_state"
     t.string "naming_convention_text"
     t.string "naming_convention"
@@ -62,7 +63,6 @@ ActiveRecord::Schema.define(version: 2019_08_12_135000) do
     t.string "description"
     t.string "doi"
     t.string "processing_level"
-    t.string "constraints"
     t.string "public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

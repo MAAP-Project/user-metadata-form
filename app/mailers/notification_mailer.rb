@@ -1,6 +1,7 @@
 class NotificationMailer < ApplicationMailer
 
-  EMAIL_LIST = ['jeanne.leroux@nsstc.uah.edu', 'kaylin.m.bugbee@nasa.gov']
+  #EMAIL_LIST = ['jeanne.leroux@nsstc.uah.edu', 'kaylin.m.bugbee@nasa.gov']
+  EMAIL_LIST = ['aimee@developmentseed.org']
 
   def questionnaire_filled(options={})
     @questionnaire = Questionnaire.where(uid: options[:uuid]).last
