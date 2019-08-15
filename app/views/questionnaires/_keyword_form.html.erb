@@ -15,5 +15,9 @@
   </div>
   <%= f.input :ancillary_keywords, label: 'Please provide any other keywords or phrases to further describe the data.' %>
   <br>
+
+  <%= javascript_tag do %>
+    $('#keywords_trigger').addClass('active');
+  <% end %>
   <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
 <% end %>

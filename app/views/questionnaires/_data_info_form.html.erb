@@ -26,5 +26,8 @@
     <%= f.input :quality_assurance, label: false, required: true %>
     <%# <%= f.input :constraints, label: 'Constraints', hint: 'Are there any constraints as to how the data may be used?' %>
   </div>
+  <%= javascript_tag do %>
+    $('#data_info_trigger').addClass('active');
+  <% end %>
   <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
 <% end %>

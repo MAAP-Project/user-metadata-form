@@ -483,6 +483,17 @@ div.color-grey {
 legend {
   font-size: 1.25rem;
 }
+
 .bs-stepper .step-trigger {
   font-size: 0.8rem;
+}
+
+.bs-stepper  .step-trigger.active .bs-stepper-circle {
+  background-color: var(--color-blue-light);
+  color: white;
+}
+
+.bs-stepper  .step-trigger:disabled .bs-stepper-circle{
+  background-color: initial;
+  color: initial;
 }

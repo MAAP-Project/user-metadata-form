@@ -26,5 +26,8 @@
   </div>
 
   <br>
+  <%= javascript_tag do %>
+    $('#collection_info_trigger').addClass('active');
+  <% end %>
   <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
 <% end %>
