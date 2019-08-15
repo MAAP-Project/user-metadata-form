@@ -18,5 +18,8 @@
     </div>
   </div>
 
+  <%= javascript_tag do %>
+    $('#temporal_extent_trigger').addClass('active');
+  <% end %>
   <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
 <% end %>

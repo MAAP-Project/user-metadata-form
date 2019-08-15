@@ -165,6 +165,7 @@ $(document).on('turbolinks:load', ()=> {
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
       $('.loader_holder').removeClass('hidden');
+      $('.step-trigger').removeAttr('disabled').removeClass('active');
     }
   });
 
