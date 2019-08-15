@@ -27,7 +27,8 @@ class CumulusApi
       granuleId: '^.+$',
       dataType: collection_data.title,
       provider_path: '',
-      userAdded: true
+      userAdded: true,
+      jobIds: collection_data.job_ids
     }
   end
 
