@@ -1,5 +1,5 @@
 class Api::V1::QuestionnairesController < Api::V1::BaseController
-  before_action :authenticate_request
+  # before_action :authenticate_request
 
   def index
     @questionnaires = Questionnaire.where(finished: true)
