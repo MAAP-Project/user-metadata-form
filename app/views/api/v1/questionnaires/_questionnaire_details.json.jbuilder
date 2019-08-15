@@ -25,12 +25,13 @@ json.contact do
 end
 
 json.collection_info do
-    collection_info = @questionnaire.collection_info
+    collection_info = questionnaire.collection_info
     json.title collection_info&.title
     json.short_title collection_info&.short_title
     json.version collection_info&.version
     json.version_description collection_info&.version_description
     json.abstract collection_info&.abstract
+    json.job_ids collection_info&.job_ids
 end
 
 json.project do
