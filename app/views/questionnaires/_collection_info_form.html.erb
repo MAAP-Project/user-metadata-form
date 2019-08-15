@@ -22,7 +22,16 @@
         <%= f.input :version_description, label:'Version Description', hint:'Please provide a brief explanation of the version. Note any limitations of the current version and whether there are plans to release a new version in the near future.' %>
       </div>
     </div>
-      <%= f.input :abstract, label:'Abstract', hint: 'Provide a description, or abstract, of your data. The abstract should summarize the dataset and should provide information that is both useful to the science community but also approachable for a first time user of the data.', required: true, type: :text_area, maxlength: 700 %>
+    <div class='form-row'>
+      <div class='col-md-12'>
+        <%= f.input :abstract, label:'Abstract', hint: 'Provide a description, or abstract, of your data. The abstract should summarize the dataset and should provide information that is both useful to the science community but also approachable for a first time user of the data.', required: true, type: :text_area, maxlength: 700 %>
+      </div>
+    </div>
+    <div class='form-row'>
+      <div class='col-md-12'>
+        <%= f.input :job_ids, label:'Job IDs', hint: 'If your data was produced using the MAAP Data Processing System, please enter any corresponding Job IDs.', as: :array %>
+      </div>
+    </div>
   </div>
 
   <br>
