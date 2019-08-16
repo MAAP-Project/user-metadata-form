@@ -8,13 +8,6 @@
 # server "db.example.com", user: "deploy", roles: %w{db}
 server '18.211.240.139', user: 'ubuntu', roles: %w{app db worker}
 set :rails_env,   "production"
-require "rvm/capistrano"
-
-set :rvm_ruby_string, :local              # use the same ruby as used locally for deployment
-set :rvm_autolibs_flag, "read-only"       # more info: rvm help autolibs
-
-before 'deploy:setup', 'rvm:install_rvm'  # install/update RVM
-before 'deploy:setup', 'rvm:install_ruby' # install Ruby and create gemset
 
 # role-based syntax
 # ==================
