@@ -8,7 +8,8 @@
 # server "db.example.com", user: "deploy", roles: %w{db}
 server '18.211.240.139', user: 'ubuntu', roles: %w{app db worker}
 set :rails_env,   "production"
-set :rvm_bin_path, "$HOME/bin"
+set :rvm_ruby_string, '2.5.1'
+set :rvm_bin_path, "/usr/local/bin"
 
 # role-based syntax
 # ==================
