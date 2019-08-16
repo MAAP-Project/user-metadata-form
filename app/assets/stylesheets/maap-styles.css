@@ -21,7 +21,7 @@ Source: https://github.com/MAAP-Project/maap-styles
     --color-red-light: #D0103A;
     --color-red-dark: #822433;
     --color-link-visited: #4C2C92;
-    --color-black; #000000;
+    --color-black: #000000;
     --color-grey-light: #D5D6D2;
     --color-grey-light2: #9A9B9C;
     --color-grey-light3: #747678;
@@ -63,7 +63,7 @@ a:hover {
   color: white;
 }
 
-a:visited: {
+a:visited {
   color: var(--color-link-visited);
 }
 

@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: pi_questionnaire_production
-  username: pi_questionnaire
-  password: <%= ENV['PI_QUESTIONNAIRE_DATABASE_PASSWORD'] %>
