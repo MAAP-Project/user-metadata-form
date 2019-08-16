@@ -28,4 +28,3 @@
 public/uploads/*/*
 .env
 logfile
-Gemfile.lock

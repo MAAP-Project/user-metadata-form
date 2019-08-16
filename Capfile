@@ -19,7 +19,6 @@ require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/rails/assets'
 require 'capistrano3/unicorn'
-require 'capistrano/rvm'
 
 
 # Include tasks from other gems included in your Gemfile
