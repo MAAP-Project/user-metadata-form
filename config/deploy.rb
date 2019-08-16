@@ -2,8 +2,8 @@
 lock "~> 3.11.0"
 
 set :branch, ENV['branch'] if ENV['branch']
-set :application, "pi_questionnaire"
-set :repo_url, " git@github.com:NASA-IMPACT/pi_questionnaire.git"
+set :application, "user-metadata-form"
+set :repo_url, " git@github.com:MAAP-Project/user-metadata-form.git"
 set :user, 'ubuntu'
 set :rails_env, 'production'
 set :log_level, :info # default: :debug
@@ -23,7 +23,7 @@ set :ssh_options, {
   forward_agent: true,
   paranoid: true,
   auth_methods: ['publickey'],
-  keys: ['~/.ssh/id_rsa.pub', '~/projects/.pemfiles/maap-pi-form.pem']
+  keys: ['~/.ssh/id_rsa', '~/.ssh/maap-umf-keypair.pem']
 }
 
 set :keep_releases, 2 # default is 5
