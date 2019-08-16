@@ -9,7 +9,7 @@
 server '18.211.240.139', user: 'ubuntu', roles: %w{app db worker}
 set :rails_env,   "production"
 set :rvm_type, :system    # :user is the default
-set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"") # Read from local system
+set :rvm_ruby_string, '/usr/share/rvm/bin/rvm' # Read from local system
 
 require "rvm/capistrano"  # Load RVM's capistrano plugin.
 
