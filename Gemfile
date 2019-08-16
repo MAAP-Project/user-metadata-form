@@ -83,7 +83,6 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano3-unicorn'
   gem 'capistrano-rvm'
-  gem 'rvm1-capistrano3', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end

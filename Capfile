@@ -20,7 +20,6 @@ require 'capistrano/rails'
 require 'capistrano/rails/assets'
 require 'capistrano3/unicorn'
 require 'capistrano/rvm'
-require 'rvm1/capistrano3'
 
 
 # Include tasks from other gems included in your Gemfile
