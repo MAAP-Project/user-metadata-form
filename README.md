@@ -39,25 +39,36 @@ Once all of the migration is complete, you can check if this is working or not b
 ![screenshot_home.jpg](./images/screenshot_home.png)
 
 ## Deployment
-To deploy branches, we use [capistrano](https://capistranorb.com/) .
 
-**Note:** User Metadata Form is a monolith app. As such, deployment in this context means copying over the code from the repository to the server and restart any dependent request handlers (in our case `unicorn`). Capistrano doesn't handle aws related actions, such as creating or tearing down of instances. This has to be done via aws console.
+Deployment uses `docker-compose` to run an app (rails), web (nginx) and db (postgres) services. See required files in the [`docker/`](./docker) directory of this repo.
 
+You can build the services locally or on a remote server with the following commands:
 
-You would either need a `pem` file or have your ssh keys added to the server to be able to deploy.
+```bash
+docker-compose build --build-arg SECRET_KEY_BASE=<ADD ME>
+docker-compose run app rake db:create RAILS_ENV=production
+docker-compose run app rake db:migrate db:seed RAILS_ENV=production
+docker-compose up -d
+```
 
-Deployment is simple. Just execute the following command from your terminal (from inside the project folder).
+To run the service on AWS EC2:
 
-`bundle exec cap production deploy branch=<branch name>`
+1. Launch an ECS-Optimized Amazon Linux 2 AMI (most recently used `ami-0fac5486e4cff37f4`)
+2. Install `git` and `docker-compose`: 
 
-**Note:** default branch is master.
+```bash
+sudo yum install git -y
+sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
 
-Once the deployment is done, you can find the files in the server at:
-`~/pi_questionnaire/current`
+Additionally, to configure the https://questionnaire.maap-project.org DNS:
 
-It will also maintain 2 of the previous revisons.
+1. Create a target group pointing to the private IP of the EC2 at port 80, say it's called `questionnaire-targets`.
+2. Find or create an ELB. The ELB configuration makes it easy to add and use the SSL certificate for the subdomain questionnaire.maap-project.org. Create 2 listeners for the ELB: 
+    1. HTTP:80 Redirecting to `HTTPS://#{host}:443/#{path}?#{query}`
+    2. HTTPS:443 Forwarding to your target group, e.g. `questionnaire-targets`.
 
-We use [Nginx](https://www.nginx.com/) and [unicorn](https://bogomips.org/unicorn/) for serving purposes.
 
 ## Built With
 
