@@ -8,6 +8,6 @@ class SpatialExtent < ApplicationRecord
   SPATIAL_NATURE = [ 'Cartesian', 'Geodetic', 'Orbit', 'Other' ]
 
   belongs_to :questionnaire, required: false
-  validates_presence_of :data_nature
+  validates_presence_of :spatial_nature
   
 end
