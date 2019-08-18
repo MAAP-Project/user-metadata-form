@@ -7,10 +7,10 @@
     Spatial Extent
   </p>
   <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
-  <%= f.label :data_nature, "Which of the following best describes the spatial nature of your data?" %>
+  <%= f.label :spatial_nature, "Which of the following best describes the spatial nature of your data?" %>
   <div class='row'>
     <div class='col-md-4'>
-      <%= f.select :data_nature, SpatialExtent::SPATIAL_NATURE, { include_blank: 'Select spatial nature' }, { class: 'spatial_nature_select select', required: true }  %>
+      <%= f.select :spatial_nature, SpatialExtent::SPATIAL_NATURE, { include_blank: 'Select spatial nature' }, { class: 'spatial_nature_select select', required: true }  %>
     </div>
   </div>
 
