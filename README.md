@@ -47,7 +47,7 @@ You can build the services locally or on a remote server with the following comm
 ```bash
 docker-compose build --build-arg SECRET_KEY_BASE=<ADD ME>
 docker-compose run app rake db:create RAILS_ENV=production
-docker-compose run app rake db:migrate db:seed RAILS_ENV=production
+docker-compose run app rake db:migrate RAILS_ENV=production
 docker-compose up -d
 ```
 
