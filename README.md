@@ -76,6 +76,10 @@ Additionally, to configure the https://questionnaire.maap-project.org DNS:
     1. HTTP:80 Redirecting to `HTTPS://#{host}:443/#{path}?#{query}`
     2. HTTPS:443 Forwarding to your target group, e.g. `questionnaire-targets`.
 
+### Deployment TODOs
+
+* Include instruction on generating `.env` file
+* Automate process of building
 
 ## Built With
 

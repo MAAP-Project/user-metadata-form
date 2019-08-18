@@ -7,7 +7,7 @@ class CumulusApi
     }
     body = cumulus_collection(collection_data).to_json
     response = HTTParty.put(
-      "#{collections_url}/#{short_name(collection_data)}/#{collection_data.version}",
+      "#{collections_url}/#{collection_data.short_title}/#{collection_data.version}",
       body: body,
       headers: headers
     )
@@ -31,19 +31,15 @@ class CumulusApi
           bucket: 'internal'
         }
       ],
-      name: short_name(collection_data),
+      name: collection_data.short_title,
       sampleFileName: 'test.xyz',
       granuleIdExtraction: '^(.+)$',
       granuleId: '^.+$',
-      dataType: short_name(collection_data),
+      dataType: collection_data.short_title,
       provider_path: '',
       userAdded: true,
       jobIds: collection_data.job_ids
     }
-  end
-
-  def self.short_name(collection_data)
-    collection_data.short_title.gsub(' ', '_')
   end
 
   def self.generate_token
