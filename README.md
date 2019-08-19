@@ -40,6 +40,8 @@ Once all of the migration is complete, you can check if this is working or not b
 
 ## Deployment
 
+All deployed instances require `cp .env.example .env` and updating the values in `.env` with valid credentials.
+
 Deployment uses `docker-compose` to run an app (rails), web (nginx) and db (postgres) services. See required files in the [`docker/`](./docker) directory of this repo.
 
 You can build the services locally or on a remote server with the following commands:
