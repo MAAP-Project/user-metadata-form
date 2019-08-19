@@ -1,6 +1,6 @@
 class SpatialExtent < ApplicationRecord
   PERMITTED_PARAMS = [
-                       :questionnaire_id, :data_nature,
+                       :questionnaire_id, :spatial_nature,
                        :bounding_box_north, :bounding_box_south, :bounding_box_east,
                        :bounding_box_west
                      ]
