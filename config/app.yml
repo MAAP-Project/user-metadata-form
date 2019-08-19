@@ -9,4 +9,5 @@ test:
   <<: *default
 
 production:
+  <<: *default
   mmt_url: https://mmt.maap-project.org/api/collections
