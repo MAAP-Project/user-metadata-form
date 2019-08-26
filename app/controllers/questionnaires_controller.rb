@@ -1,4 +1,5 @@
 class QuestionnairesController < ApplicationController
+  include ControlledKeywords
   http_basic_authenticate_with name: ENV['USER_NAME'],
     password: ENV['VIEW_PASSWORD'], except: [:create, :update, :new, :files]
 
@@ -41,6 +42,9 @@ class QuestionnairesController < ApplicationController
   end
 
   def update
+    if params['current_partial'] == 'related_info'
+      set_science_keywords
+    end
     partial_handler = PartialHandler.new(params)
     partial_handler.update
     @previous_partial = params['current_partial']

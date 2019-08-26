@@ -1,6 +1,8 @@
 class CollectionInfo < ApplicationRecord
   PERMITTED_PARAMS = [
-    :title, :short_title, :version, :version_description, :abstract, :status, :questionnaire_id, job_ids: []
+    :title, :short_title, :version, :version_description,
+    :abstract, :status, :questionnaire_id, job_ids: [],
+    upload_directories: []
   ]
 
   belongs_to :questionnaire, required: false

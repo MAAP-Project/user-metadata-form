@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_223043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "job_ids", default: [], array: true
+    t.string "upload_directories", default: [], array: true
     t.index ["questionnaire_id"], name: "index_collection_infos_on_questionnaire_id"
   end
 
@@ -177,11 +178,13 @@ ActiveRecord::Schema.define(version: 2019_08_14_223043) do
 
   create_table "spatial_extents", force: :cascade do |t|
     t.bigint "questionnaire_id"
-    t.string "spatial_nature"
+    t.string "data_nature"
     t.string "bounding_box_north"
     t.string "bounding_box_south"
     t.string "bounding_box_west"
     t.string "bounding_box_east"
+    t.string "spatial_resolution"
+    t.boolean "geolocated"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["questionnaire_id"], name: "index_spatial_extents_on_questionnaire_id"

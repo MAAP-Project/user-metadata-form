@@ -32,6 +32,11 @@
         <%= f.input :job_ids, label:'Job IDs', hint: 'If your data was produced using the MAAP Data Processing System, please enter any corresponding Job IDs.', as: :array %>
       </div>
     </div>
+    <div class='form-row'>
+      <div class='col-md-12'>
+        <%= f.input :upload_directories, label:'Upload Directories', hint: 'If you uploaded data directly, please add the unique upload directory ID', as: :array %>
+      </div>
+    </div>
   </div>
 
   <br>

@@ -73,7 +73,7 @@ end
 
 json.spatial_extent do
   spatial_extent = questionnaire.spatial_extent
-  json.spatial_nature spatial_extent&.spatial_nature
+  json.data_nature spatial_extent&.data_nature
   json.bounding_box_north spatial_extent&.bounding_box_north
   json.bounding_box_south spatial_extent&.bounding_box_south
   json.bounding_box_east spatial_extent&.bounding_box_east

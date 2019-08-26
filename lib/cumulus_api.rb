@@ -38,7 +38,8 @@ class CumulusApi
       dataType: collection_data.short_title,
       provider_path: '',
       userAdded: true,
-      jobIds: collection_data.job_ids
+      jobIds: collection_data.job_ids,
+      uploadDirectories: collection_data.upload_directories
     }
   end
 

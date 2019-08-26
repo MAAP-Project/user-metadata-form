@@ -10,7 +10,15 @@
   <%= f.label :science_keywords, "Please select at least one science keyword from the following options:" %>
   <div class='row'>
     <div class='col-md-4'>
+
       <%= f.select :science_keywords, Keyword::SCIENCE_KEYWORDS, { include_blank: 'Select a keyword' }, { class: 'science_keywords_select select', required: true }  %>
+      <!--
+      <% @science_keywords.each_with_index do |science_keyword, index| %>
+        <li>
+          <%= science_keyword %>
+        </li>
+      <% end %>
+      -->
     </div>
   </div>
   <%= f.input :ancillary_keywords, label: 'Please provide any other keywords or phrases to further describe the data.' %>
