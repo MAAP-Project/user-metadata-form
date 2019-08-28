@@ -8,22 +8,274 @@
   </p>
   <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
   <%= f.label :science_keywords, "Please select at least one science keyword from the following options:" %>
-  <div class='row'>
-    <div class='col-md-4'>
-
-      <%= f.select :science_keywords, Keyword::SCIENCE_KEYWORDS, { include_blank: 'Select a keyword' }, { class: 'science_keywords_select select', required: true }  %>
-      <!--
-      <% @science_keywords.each_with_index do |science_keyword, index| %>
-        <li>
-          <%= science_keyword %>
-        </li>
-      <% end %>
-      -->
+    <%= f.input :science_keywords, required: true   %>
+    <div class='row'>
+      <div class="form-row">
+        <div class="col-md-4">
+          <h2>Input</h2>
+          <div class="form-group">
+            <label for="input-check-node" class="sr-only">Search Tree:</label>
+            <input type="input" class="form-control" id="input-check-node" placeholder="Identify node..." value="EARTH SCIENCE">
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <button type="button" class="btn btn-success check-node" id="btn-check-node">Check Node</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-danger check-node" id="btn-uncheck-node">Uncheck Node</button>
+          </div>
+          <hr>
+        </div>
+        <div class="col-md-8">
+          <h2>Tree</h2>
+          <div id="treeview-checkable" class=""></div>
+        </div>
+      </div>
     </div>
-  </div>
   <%= f.input :ancillary_keywords, label: 'Please provide any other keywords or phrases to further describe the data.' %>
   <br>
 
+  <script type="text/javascript">
+    $(function() {
+      var scienceKeywordsAsNodes = [];
+      function addChildNodes(node, category = null, topic = null, term = null, subfield = null) {
+        let hasChildNodes = node.subfields;
+        let text = node.value;
+        let href = `#${text.toLowerCase().replace(' ', '').replace('-', '')}`;
+        if (hasChildNodes) {
+          let childNodesField = hasChildNodes[0]
+          if (childNodesField === 'topic') {
+            category = node.value;
+          } else if (childNodesField === 'term') {
+            topic = node.value;
+          } else if (childNodesField.includes('variable_level_')) {
+            term = node.value;
+            subfield = childNodesField;
+          };
+          let childNodes = []
+          node[hasChildNodes].forEach((childNode) => {
+            childNodes = childNodes.concat(
+              addChildNodes(childNode, category, topic, term, subfield)
+            );
+          });
+          let text = node.value;
+          return {
+            text,
+            href,
+            nodes: childNodes
+          }
+        } else {
+          return {
+            text,
+            href,
+            uuid: node.uuid,
+            category,
+            topic,
+            term,
+            subfield
+          };
+        }
+        return node;
+      }
+      var defaultData = [addChildNodes(scienceKeywords.category[0])];
+      console.log([defaultData]);
+
+      // var defaultData = [
+      //   {
+      //     text: 'Earth ',
+      //     href: '#parent1',
+      //     nodes: [
+      //       {
+      //         text: 'Child 1',
+      //         href: '#child1',
+      //         nodes: [
+      //           {
+      //             text: 'Grandchild 1',
+      //             href: '#grandchild1'
+      //           },
+      //           {
+      //             text: 'Grandchild 2',
+      //             href: '#grandchild2'
+      //           }
+      //         ]
+      //       },
+      //       {
+      //         text: 'Child 2',
+      //         href: '#child2'
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     text: 'Parent 2',
+      //     href: '#parent2'
+      //   },
+      //   {
+      //     text: 'Parent 3',
+      //     href: '#parent3'
+      //   },
+      //   {
+      //     text: 'Parent 4',
+      //     href: '#parent4'
+      //   },
+      //   {
+      //     text: 'Parent 5',
+      //     href: '#parent5'
+      //   }
+      // ];
+
+
+      var $searchableTree = $('#treeview-searchable').treeview({
+        data: defaultData,
+      });
+
+      var search = function(e) {
+        var pattern = $('#input-search').val();
+        var options = {
+          ignoreCase: $('#chk-ignore-case').is(':checked'),
+          exactMatch: $('#chk-exact-match').is(':checked'),
+          revealResults: $('#chk-reveal-results').is(':checked')
+        };
+        var results = $searchableTree.treeview('search', [ pattern, options ]);
+
+        var output = '<p>' + results.length + ' matches found</p>';
+        $.each(results, function (index, result) {
+          output += '<p>- ' + result.text + '</p>';
+        });
+        $('#search-output').html(output);
+      }
+
+      $('#input-search').on('keyup', search);
+
+      $('#btn-clear-search').on('click', function (e) {
+        $searchableTree.treeview('clearSearch');
+        $('#input-search').val('');
+        $('#search-output').html('');
+      });
+
+
+      var initSelectableTree = function() {
+        return $('#treeview-selectable').treeview({
+          data: defaultData,
+          multiSelect: $('#chk-select-multi').is(':checked'),
+          onNodeSelected: function(event, node) {
+            $('#selectable-output').prepend('<p>' + node.text + ' was selected</p>');
+          },
+          onNodeUnselected: function (event, node) {
+            $('#selectable-output').prepend('<p>' + node.text + ' was unselected</p>');
+          }
+        });
+      };
+      var $selectableTree = initSelectableTree();
+
+      var findSelectableNodes = function() {
+        return $selectableTree.treeview('search', [ $('#input-select-node').val(), { ignoreCase: false, exactMatch: false } ]);
+      };
+      var selectableNodes = findSelectableNodes();
+
+      $('#chk-select-multi:checkbox').on('change', function () {
+        console.log('multi-select change');
+        $selectableTree = initSelectableTree();
+        selectableNodes = findSelectableNodes();
+      });
+
+      // Select/unselect/toggle nodes
+      $('#input-select-node').on('keyup', function (e) {
+        selectableNodes = findSelectableNodes();
+        $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
+      });
+
+      $('#btn-select-node.select-node').on('click', function (e) {
+        console.log('selected:');
+        console.log(e);
+        $selectableTree.treeview('selectNode', [ selectableNodes, { silent: $('#chk-select-silent').is(':checked') }]);
+      });
+
+      $('#btn-unselect-node.select-node').on('click', function (e) {
+        $selectableTree.treeview('unselectNode', [ selectableNodes, { silent: $('#chk-select-silent').is(':checked') }]);
+      });
+
+      $('#btn-toggle-selected.select-node').on('click', function (e) {
+        $selectableTree.treeview('toggleNodeSelected', [ selectableNodes, { silent: $('#chk-select-silent').is(':checked') }]);
+      });
+
+      var $expandibleTree = $('#treeview-expandible').treeview({
+        data: defaultData,
+        onNodeCollapsed: function(event, node) {
+          $('#expandible-output').prepend('<p>' + node.text + ' was collapsed</p>');
+        },
+        onNodeExpanded: function (event, node) {
+          $('#expandible-output').prepend('<p>' + node.text + ' was expanded</p>');
+        }
+      });
+
+      var findExpandibleNodess = function() {
+        return $expandibleTree.treeview('search', [ $('#input-expand-node').val(), { ignoreCase: false, exactMatch: false } ]);
+      };
+      var expandibleNodes = findExpandibleNodess();
+
+      // Expand/collapse/toggle nodes
+      $('#input-expand-node').on('keyup', function (e) {
+        expandibleNodes = findExpandibleNodess();
+        $('.expand-node').prop('disabled', !(expandibleNodes.length >= 1));
+      });
+
+      $('#btn-expand-node.expand-node').on('click', function (e) {
+        var levels = $('#select-expand-node-levels').val();
+        $expandibleTree.treeview('expandNode', [ expandibleNodes, { levels: levels, silent: $('#chk-expand-silent').is(':checked') }]);
+      });
+
+      $('#btn-collapse-node.expand-node').on('click', function (e) {
+        $expandibleTree.treeview('collapseNode', [ expandibleNodes, { silent: $('#chk-expand-silent').is(':checked') }]);
+      });
+
+      $('#btn-toggle-expanded.expand-node').on('click', function (e) {
+        $expandibleTree.treeview('toggleNodeExpanded', [ expandibleNodes, { silent: $('#chk-expand-silent').is(':checked') }]);
+      });
+
+      // Expand/collapse all
+      $('#btn-expand-all').on('click', function (e) {
+        var levels = $('#select-expand-all-levels').val();
+        $expandibleTree.treeview('expandAll', { levels: levels, silent: $('#chk-expand-silent').is(':checked') });
+      });
+
+      $('#btn-collapse-all').on('click', function (e) {
+        $expandibleTree.treeview('collapseAll', { silent: $('#chk-expand-silent').is(':checked') });
+      });
+
+      var $checkableTree = $('#treeview-checkable').treeview({
+        data: defaultData,
+        showIcon: false,
+        showCheckbox: true,
+        onNodeChecked: function(event, node) {
+          console.log(`node is`)
+          console.log(node)
+          $('#keyword_science_keywords').val(JSON.stringify(node));
+        },
+        onNodeUnchecked: function (event, node) {
+        }
+      });
+
+      var findCheckableNodess = function() {
+        return $checkableTree.treeview('search', [ $('#input-check-node').val(), { ignoreCase: false, exactMatch: false } ]);
+      };
+      var checkableNodes = findCheckableNodess();
+
+      // Check/uncheck/toggle nodes
+      $('#input-check-node').on('keyup', function (e) {
+        checkableNodes = findCheckableNodess();
+        $('.check-node').prop('disabled', !(checkableNodes.length >= 1));
+      });
+
+      $('#btn-check-node.check-node').on('click', function (e) {
+        $checkableTree.treeview('checkNode', [ checkableNodes, { silent: $('#chk-check-silent').is(':checked') }]);
+      });
+
+      $('#btn-uncheck-node.check-node').on('click', function (e) {
+        $checkableTree.treeview('uncheckNode', [ checkableNodes, { silent: $('#chk-check-silent').is(':checked') }]);
+      });
+    });
+  </script>
   <%= javascript_tag do %>
     $('#keywords_trigger').addClass('active');
   <% end %>

@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_223043) do
 
   create_table "keywords", force: :cascade do |t|
     t.bigint "questionnaire_id"
-    t.string "science_keywords"
+    t.json "science_keywords"
     t.string "ancillary_keywords"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
