@@ -16,13 +16,11 @@ class QuestionnairesController < ApplicationController
   end
 
   def new
-    params['questionnaire_uuid'] = 'a6778f0a-4d1b-446a-93ac-2dcae71bd1c4'
-    params['previous_partial'] = 'related_info'
     @questionnaire = Questionnaire.where(uid: params['questionnaire_uuid']).last
     @questionnaire ||= Questionnaire.new
     @current_resource = @questionnaire
-    @partial = 'keyword'
-    @previous_partial = 'related_info'
+    @partial = 'questionnaire_form'
+    @previous_partial = nil
     @hide_form = params['questionnaire_uuid']
     if request.xhr? || @hide_form
       params['current_partial'] = params['previous_partial'] || 'questionnaire'
