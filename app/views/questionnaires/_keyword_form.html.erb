@@ -17,17 +17,16 @@
 <p class='lead'>
   Unique Identifier: <%= questionnaire.uuid %>
 </p>
-<%= simple_form_for(current_resource, as: :keyword, method: http_verb, url: path, remote: true)   do |f| %>
+<%= simple_form_for(current_resource, as: :keyword, method: http_verb, url: path, remote: true, :html => { :onsubmit => "insertSelectedKeywords()" } )   do |f| %>
   <p class="lead">
     Descriptive Keywords
   </p>
+  <p>Current Selections:</p>
+  <ul id="current_keywords">
+  </ul>
   <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
   <%= f.label :science_keywords, "Please select at least one science keyword from the following options:" %>
     <%= f.input :science_keywords, as: :hidden, required: true   %>
-    <div class="col-md-12">
-      <ul id="current_keywords">
-      </ul>
-    </div>
     <div class='row'>
       <div class="form-row">
         <div class="col-md-4">
@@ -38,16 +37,13 @@
           </div>
           <div class="col-md-4 row">
             <div class="form-group">
-              <button type="button" class="btn btn-success" id="btn-search">Search</button>
+              <button type="button" class="btn btn-success" id="btn-search">Search Keywords</button>
             </div>
             <div class="form-group">
               <button type="button" class="btn btn-success check-node" id="btn-check-node">Check Keywords</button>
             </div>
             <div class="form-group">
               <button type="button" class="btn btn-danger check-node" id="btn-uncheck-node">Uncheck Keywords</button>
-            </div>
-            <div class="form-group">
-              <button type="button" class="btn btn-default" id="btn-clear-search">Clear Search</button>
             </div>
           </div>
           <hr>
@@ -62,9 +58,18 @@
   <br>
 
   <script type="text/javascript">
+    var checkableTree;
+    var insertSelectedKeywords = function() {
+      const selectedItems = checkableTree.data().treeview.getSelected();
+      $('#keyword_science_keywords').val(JSON.stringify(selectedItems));
+    };
+
     $(function() {
       var scienceKeywordsAsNodes = [];
-      function addChildNodes(node, category = null, topic = null, term = null, subfield = null) {
+      let currentKeywords = JSON.parse($('#keyword_science_keywords').val());
+      let currentKeywordsUuids = currentKeywords.map(ck => ck.uuid);
+
+      var addChildNodes = function(node, category = null, topic = null, term = null, subfield = null) {
         let hasChildNodes = node.subfields;
         let text = node.value;
         let href = `#${text.toLowerCase().replace(' ', '').replace('-', '')}`;
@@ -104,15 +109,18 @@
             uuid: node.uuid,
             Category: category,
             Topic: topic,
-            Term: term
+            Term: term,
+            state: {}
           };
+          if (currentKeywordsUuids.includes(node.uuid)) {
+            childNode.state.selected = true;
+          }
           childNode[subfield] = text;
           return childNode;
         }
         return node;
       }
       var defaultData = [addChildNodes(scienceKeywords.category[0])];
-
 
       var search = function(e) {
         var options = {
@@ -183,33 +191,30 @@
         showCheckbox: false,
         multiSelect: true,
         onNodeSelected: function(event, node) {
-          let currentKeywords = $('#keyword_science_keywords').val() || '[]';
-          if (currentKeywords) {
-            currentKeywords = JSON.parse(currentKeywords);
-            if (!Array.isArray(currentKeywords)) {
-              currentKeywords = [currentKeywords];
-            }
-          }
-          let updatedKeywords = currentKeywords.concat(node);
-          $('#current_keywords').empty();
-          updatedKeywords.forEach((keyword) => {
-            $('#current_keywords').append(`<li>${keyword.Category} > ${keyword.Topic} > ${keyword.Term} > ${keyword.text}</li>`);
-          });
-          $('#keyword_science_keywords').val(JSON.stringify(updatedKeywords));
+          updateSelectedDisplay();
         },
         onNodeUnselected: function (event, node) {
-          console.log('deslected')
+          updateSelectedDisplay();
         }
       });
+      checkableTree = $checkableTree;
+      var updateSelectedDisplay = function() {
+        $('#current_keywords').empty();
+        const selectedNodes = checkableTree.data().treeview.getSelected();
+        selectedNodes.forEach((keyword) => {
+          $('#current_keywords').append(`<li>${keyword.Category} > ${keyword.Topic} > ${keyword.Term} > ${keyword.text}</li>`);
+        });
+      };
+      updateSelectedDisplay();
 
-      var findCheckableNodess = function() {
+      var findCheckableNodes = function() {
         return $checkableTree.treeview('search', [ $('#input-check-node').val(), { ignoreCase: false, exactMatch: false } ]);
       };
-      var checkableNodes = findCheckableNodess();
+      var checkableNodes = findCheckableNodes();
 
       // Check/uncheck/toggle nodes
       $('#btn-search').on('click', function (e) {
-        checkableNodes = findCheckableNodess();
+        checkableNodes = findCheckableNodes();
         $('.check-node').prop('disabled', !(checkableNodes.length >= 1));
       });
 
