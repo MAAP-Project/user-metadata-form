@@ -42,9 +42,7 @@ class QuestionnairesController < ApplicationController
   end
 
   def update
-    if params['current_partial'] == 'related_info'
-      set_science_keywords
-    end
+    flash[:notice] = 'Information saved.'
     partial_handler = PartialHandler.new(params)
     partial_handler.update
     @previous_partial = params['current_partial']

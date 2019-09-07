@@ -8,20 +8,22 @@
     Related Information
   </p>
   <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
-  <%= f.label :published_paper_url, 'Has this dataset been described and used in a published paper? If so, please provide a DOI or link to the manscript.' %>
-  <div class='row'>
+  <div class='form-row'>
+    <div class='col-md-12'>
+      <%= f.label :published_paper_url, 'Has this dataset been described and used in a published paper? If so, please provide a DOI or link to the manscript.' %>
+    </div>
     <div class='col-md-7'>
       <%= f.input :published_paper_url, label: false, placeholder: 'http://example.com, http://another.example.com' %>
     </div>
-    <span class='col-md-1'>
+    <span class='col-md-1' style='margin-top: 0.5em;'>
       AND/OR
     </span>
-    <div class='col-md-4'>
+    <div class='col-md-4' style='margin-top: 0.5em;'>
       <%= f.file_field :published_paper, label: false, multiple: true, class: 'file_upload' %>
     </div>
   </div>
   <% if current_resource.published_paper.present? %>
-    <div class='row'>
+    <div class='form-row'>
       <div class='col-md-2'>
         <p class='lead'>
           Uploaded file
@@ -29,7 +31,7 @@
       </div>
       <div class='col-md-10'>
         <% current_resource.published_paper.each do |doc|%>
-          <div class='row '>
+          <div class='form-row '>
             <% file_name = doc.file.filename %>
             <div class='col-md-6'>
               <%= link_to file_name, doc.url, target: '_blank' %>
@@ -42,20 +44,22 @@
       </div>
     </div>
   <% end %>
-  <%= f.label :user_documentation_url, "If available, please provide any links to relevant user documentation." %>
-  <div class='row'>
+  <div class='form-row'> 
+    <div class='col-md-12'> 
+      <%= f.label :user_documentation_url, "If available, please provide any links to relevant user documentation." %>
+    </div>
     <div class='col-md-7'>
       <%= f.input :user_documentation_url, label: false, placeholder: 'http://example.com, http://another.example.com' %>
     </div>
-    <span class='col-md-1'>
+    <span class='col-md-1' style='margin-top: 0.5em;'>
       AND/OR
     </span>
-    <div class='col-md-4'>
+    <div class='col-md-4' style='margin-top: 0.5em;'>
       <%= f.file_field :user_documentation, label: false, multiple: true, class: 'file_upload' %>
     </div>
   </div>
   <% if current_resource.user_documentation.present? %>
-    <div class='row'>
+    <div class='form-row'>
       <div class='col-md-2'>
         <p class='lead'>
           Uploaded file
@@ -63,7 +67,7 @@
       </div>
       <div class='col-md-10'>
         <% current_resource.user_documentation.each do |doc|%>
-          <div class='row '>
+          <div class='form-row '>
             <% file_name = doc.file.filename %>
             <div class='col-md-6'>
               <%= link_to file_name, doc.url, target: '_blank' %>
@@ -76,20 +80,22 @@
       </div>
     </div>
   <% end %>
-  <%= f.label :algo_documentation_url, 'If available, please provide a link to your ATBD or other documentation describing the algorithm and scientific principles used in generating your data.' %>
-  <div class='row'>
+  <div class='form-row'>
+    <div class='col-md-12'>
+      <%= f.label :algo_documentation_url, 'If available, please provide a link to your ATBD or other documentation describing the algorithm and scientific principles used in generating your data.' %>
+    </div>
     <div class='col-md-7'>
       <%= f.input :algo_documentation_url, label: false, placeholder: 'http://example.com, http://another.example.com' %>
     </div>
-    <span class='col-md-1'>
+    <span class='col-md-1' style='margin-top: 0.5em;'>
       AND/OR
     </span>
-    <div class='col-md-4'>
+    <div class='col-md-4' style='margin-top: 0.5em;'>
       <%= f.file_field :algo_documentation, label: false, multiple: true, class: 'file_upload' %>
     </div>
   </div>
   <% if current_resource.algo_documentation.present? %>
-    <div class='row'>
+    <div class='form-row'>
       <div class='col-md-2'>
         <p class='lead'>
           Uploaded file
@@ -97,7 +103,7 @@
       </div>
       <div class='col-md-10'>
         <% current_resource.algo_documentation.each do |doc|%>
-          <div class='row '>
+          <div class='form-row '>
             <% file_name = doc.file.filename %>
             <div class='col-md-6'>
               <%= link_to file_name, doc.url, target: '_blank' %>
@@ -114,5 +120,7 @@
   <%= javascript_tag do %>
     $('#related_info_trigger').addClass('active');
   <% end %>
-  <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
+  <div class='form-row col-md-12'>
+    <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
+  </div>
 <% end %>

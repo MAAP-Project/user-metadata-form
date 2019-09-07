@@ -32,17 +32,4 @@ module ControlledKeywords
       []
     end
   end
-
-  def set_science_keywords
-    keywords = fetch_science_keywords
-    if keywords.key? 'category'
-      keywords['category'].each do |category|
-        if category['value'] == 'EARTH SCIENCE SERVICES'
-          keywords['category'].delete(category)
-          break
-        end
-      end
-    end
-    @science_keywords = keywords
-  end
 end

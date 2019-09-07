@@ -21,34 +21,34 @@
   <p class="lead">
     Descriptive Keywords
   </p>
-  <p>Current Selections:</p>
-  <ul id="current_keywords">
-  </ul>
   <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
-  <%= f.label :science_keywords, "Please select at least one science keyword from the following options:" %>
+  <%= f.label :science_keywords, "Please select at least one science keyword from the following options:*" %>
+    <h2>Current Selections:</h2>
+    <ul id="current_keywords">
+    </ul>
     <%= f.input :science_keywords, as: :hidden, required: true   %>
-    <div class='row'>
-      <div class="form-row">
+    <div class="form-row">
+      <div class="col-md-4">
+        <h2>Search</h2>
+        <div class="form-group">
+          <label for="input-check-node" class="sr-only">Search Tree:</label>
+          <input type="input" class="form-control" id="input-check-node" placeholder="Identify node..." value="EARTH SCIENCE">
+        </div>
         <div class="col-md-4">
-          <h2>Search</h2>
           <div class="form-group">
-            <label for="input-check-node" class="sr-only">Search Tree:</label>
-            <input type="input" class="form-control" id="input-check-node" placeholder="Identify node..." value="EARTH SCIENCE">
+            <button type="button" class="btn btn-success" id="btn-search">Search Keywords</button>
           </div>
-          <div class="col-md-4 row">
-            <div class="form-group">
-              <button type="button" class="btn btn-success" id="btn-search">Search Keywords</button>
-            </div>
-          </div>
-          <hr>
         </div>
-        <div class="col-md-8">
-          <h2>Select Keywords</h2>
-          <div id="treeview-searchable" class=""></div>
-        </div>
+        <hr>
+      </div>
+      <div class="col-md-8">
+        <h2>Select Keywords</h2>
+        <div id="treeview-searchable" class=""></div>
       </div>
     </div>
-  <%= f.input :ancillary_keywords, label: 'Please provide any other keywords or phrases to further describe the data.' %>
+    <div class='form-row col-md-12'>
+      <%= f.input :ancillary_keywords, label: 'Please provide any other keywords or phrases to further describe the data.' %>
+    </div>
   <br>
 
   <script type="text/javascript">
@@ -143,7 +143,6 @@
       });
 
       $('#chk-select-multi:checkbox').on('change', function () {
-        console.log('multi-select change');
         selectableNodes = findSelectableNodes();
       });
 

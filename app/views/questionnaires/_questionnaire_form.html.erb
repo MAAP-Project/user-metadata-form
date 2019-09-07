@@ -14,5 +14,7 @@
       <%= f.input :user_email, label: 'E-mail', placeholder: 'user@domain.com', required: true %>
     </div>
   </div>
-  <%= f.button :submit, 'Next', { class: 'btn btn-primary next_btn' } %>
+  <div class='form-row col-md-12'>
+    <%= f.button :submit, 'Next', { class: 'btn btn-primary next_btn' } %>
+  </div>
 <% end %>

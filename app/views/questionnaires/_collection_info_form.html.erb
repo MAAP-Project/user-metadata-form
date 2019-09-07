@@ -8,9 +8,13 @@
       Collection Information
     </legend>
     <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
-      <%= f.input :title, label:'Title', hint:'Please provide a descriptive formal title of your dataset. Be sure to spell out any acronyms and minimize the use of special characters. The title should follow a mixed case capitalization scheme. Important elements about the data may be included, such as: parameters measured, geographic location, instrument, project, temporal coverage.', required: true %>
     <div class='form-row'>
-      <div class='col-md-6'>
+      <div class='col-md-12'>
+        <%= f.input :title, label:'Title', hint:'Please provide a descriptive formal title of your dataset. Be sure to spell out any acronyms and minimize the use of special characters. The title should follow a mixed case capitalization scheme. Important elements about the data may be included, such as: parameters measured, geographic location, instrument, project, temporal coverage.', required: true %>
+      </div>
+    </div>
+    <div class='form-row'>
+      <div class='col-md-12'>
         <%= f.input :short_title, label:'Short Title', hint:'Please provide a shortname for your dataset, which is an abbreviated version of the title. The shortname should be less than 85 characters with no spaces.', placeholder: 'FIFE_RAIN_30M_2', required: true %>
       </div>
     </div>

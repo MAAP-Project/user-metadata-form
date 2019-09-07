@@ -4,5 +4,5 @@ class Keyword < ApplicationRecord
 
   belongs_to :questionnaire, required: false
 
-  validates_presence_of :science_keywords, :ancillary_keywords
+  validates_presence_of :science_keywords
 end

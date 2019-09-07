@@ -8,14 +8,16 @@
   </p>
   <%= f.input :questionnaire_id, as: :hidden, input_html: { value: questionnaire.id } %>
   <%= f.label :data_nature, "Which of the following best describes the spatial nature of your data?" %>
-  <div class='row'>
+  <div class='form-row'>
     <div class='col-md-4'>
       <%= f.select :data_nature, SpatialExtent::SPATIAL_NATURE, { include_blank: 'Select spatial nature' }, { class: 'data_nature_select select', required: true }  %>
     </div>
   </div>
 
+  <div class='form-row col-md-12'>
   <%= f.label :bounding_box_north, "Please provide the northern/southern/eastern/western extent (latitude/latitude/longitude/longitude) of your dataset in decimal degrees." %>
-  <div class='row'>
+  </div>
+  <div class='form-row'>
     <div class='col-md-4'>
       <%= f.input :bounding_box_north, label: 'North' %>
     </div>
@@ -33,5 +35,7 @@
   <%= javascript_tag do %>
     $('#spatial_extent_trigger').addClass('active');
   <% end %>
-  <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
+  <div class='form-row col-md-12'>
+    <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
+  </div>
 <% end %>
