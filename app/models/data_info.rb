@@ -4,8 +4,8 @@ class DataInfo < ApplicationRecord
                       :format, :compression_state, :naming_convention_text,
                       :naming_convention, :constraints
                      ]
-   DATA_STATE = ['Compressed', 'Uncompressed', 'Combination of Both']
-   SIZE_FORMAT = ['KB', 'MB', 'GB', 'TB']
+  DATA_STATE = ['Compressed', 'Uncompressed', 'Combination of Both']
+  SIZE_FORMAT = ['KB', 'MB', 'GB', 'TB']
 
   belongs_to :questionnaire, required: false
 
