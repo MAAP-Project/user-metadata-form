@@ -12,18 +12,18 @@ RUN mkdir -p $RAILS_ROOT
 WORKDIR $RAILS_ROOT
 
 # Setting env up
-ENV RAILS_ENV='production'
-ENV RACK_ENV='production' 
+ENV RAILS_ENV='development'
+ENV RACK_ENV='development' 
 ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 # Adding gems
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-RUN bundle install --jobs 20 --retry 5 --without development test 
+RUN bundle install --jobs 20 --retry 5 
 
 # Adding project files
 COPY . .
 RUN bundle exec rake assets:precompile
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
