@@ -11,7 +11,8 @@ class CreateDraftJob < ApplicationJob
     questionnaire = Questionnaire.where(id: questionnaire['id']).last
     # Create the Cumulus collection
     collection_info = questionnaire.collection_info
-    # response = CumulusApi.create_cumulus_collection(collection_info)
+    response = CumulusApi.create_cumulus_collection(collection_info)
+    Rails.logger.info "Created Cumulus collection #{response}"
 
     output = view.render(
         file: '_questionnaire_details.json.jbuilder',
