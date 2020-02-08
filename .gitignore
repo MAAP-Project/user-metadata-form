@@ -28,3 +28,4 @@
 public/uploads/*/*
 .env
 logfile
+config/database.yml*
