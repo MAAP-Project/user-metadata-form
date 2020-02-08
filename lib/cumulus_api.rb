@@ -11,7 +11,7 @@ class CumulusApi
       body: body,
       headers: headers
     )
-    if response.code === 400 and response.parsed_response['message'] === 'Record does not exist'
+    if response.code === 404
       response = HTTParty.post(
         collections_url,
         body: body,
@@ -36,10 +36,11 @@ class CumulusApi
       granuleIdExtraction: '^(.+)$',
       granuleId: '^.+$',
       dataType: collection_data.short_title,
-      provider_path: '',
-      userAdded: true,
-      jobIds: collection_data.job_ids,
-      uploadDirectories: collection_data.upload_directories
+      meta: {
+        userAdded: true,
+        jobIds: collection_data.job_ids,
+        uploadDirectories: collection_data.upload_directories
+      }
     }
   end
 
