@@ -4,6 +4,8 @@ ARG ENV
 ARG SECRET_KEY_BASE
 ARG DATABASE_HOST
 ARG DATABASE_PASSWORD
+ARG EARTHDATA_USERNAME
+ARG EARTHDATA_PASSWORD
 
 # Setting env up
 ENV RAILS_ENV=$ENV
@@ -11,6 +13,8 @@ ENV RACK_ENV=$ENV
 ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
 ENV DATABASE_HOST=$DATABASE_HOST
 ENV DATABASE_PASSWORD=$DATABASE_PASSWORD
+ENV EARTHDATA_USERNAME=$EARTHDATA_USERNAME
+ENV EARTHDATA_PASSWORD=$EARTHDATA_PASSWORD
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs 
 
@@ -25,7 +29,7 @@ WORKDIR $RAILS_ROOT
 COPY . .
 RUN bundle install --jobs 20 --retry 5 
 RUN bundle exec rake assets:precompile
-RUN sh ./run-migrations.sh
+RUN bash ./run-migrations.sh
 EXPOSE 3001
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
