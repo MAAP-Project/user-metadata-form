@@ -28,4 +28,4 @@
 public/uploads/*/*
 .env
 logfile
-config/database.yml*
+build-production.sh
