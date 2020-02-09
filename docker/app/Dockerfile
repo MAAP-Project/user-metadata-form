@@ -25,7 +25,7 @@ WORKDIR $RAILS_ROOT
 COPY . .
 RUN bundle install --jobs 20 --retry 5 
 RUN bundle exec rake assets:precompile
-RUN if [ "$RACK_ENV" == "production" ] ; then rake db:create && rake db:migrate ; else echo "Not running migrations in development" ; fi
+RUN sh ./run-migrations.sh
 EXPOSE 3001
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
