@@ -1,4 +1,4 @@
-FROM ruby:2.5.1
+FROM user-metadata-form_base
 
 ARG ENV
 ARG SECRET_KEY_BASE
@@ -16,18 +16,8 @@ ENV DATABASE_PASSWORD=$DATABASE_PASSWORD
 ENV EARTHDATA_USERNAME=$EARTHDATA_USERNAME
 ENV EARTHDATA_PASSWORD=$EARTHDATA_PASSWORD
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs 
-
-# Set an environment variable where the Rails app is installed to inside of Docker image
-ENV RAILS_ROOT /var/www/user-metadata-form
-RUN mkdir -p $RAILS_ROOT 
-
-# Set working directory
-WORKDIR $RAILS_ROOT
-
 # Adding project files
 COPY . .
-RUN bundle install --jobs 20 --retry 5 
 RUN bundle exec rake assets:precompile
 RUN bash ./run-migrations.sh
 EXPOSE 3001

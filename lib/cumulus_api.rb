@@ -36,11 +36,8 @@ class CumulusApi
       granuleIdExtraction: '^(.+)$',
       granuleId: '^.+$',
       dataType: collection_data.short_title,
-      meta: {
-        userAdded: true,
-        jobIds: collection_data.job_ids,
-        uploadDirectories: collection_data.upload_directories
-      }
+      provider_path: "user-added/uploaded_objects/#{collection_data.upload_directories[0]}",
+      meta: { userAdded: true }
     }
   end
 

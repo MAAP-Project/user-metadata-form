@@ -2,12 +2,17 @@ version: '3'
 volumes:  
   postgres_data: {} 
 services:  
+  base:    
+    build:      
+      context: .      
+      dockerfile: ./docker/base/Dockerfile    
   app:    
     build:      
       context: .      
       dockerfile: ./docker/app/Dockerfile    
     depends_on:      
-      - db  
+      - db
+      - base
     ports:      
       - 3001:3001
   db:    
