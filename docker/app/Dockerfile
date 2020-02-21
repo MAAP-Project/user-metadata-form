@@ -20,6 +20,6 @@ ENV EARTHDATA_PASSWORD=$EARTHDATA_PASSWORD
 COPY . .
 RUN bundle exec rake assets:precompile
 RUN bash ./run-migrations.sh
-EXPOSE 3001
+EXPOSE 2998
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

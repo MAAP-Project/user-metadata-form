@@ -14,7 +14,7 @@ services:
       - db
       - base
     ports:      
-      - 3001:3001
+      - 2998:2998
   db:    
     image: postgres    
     volumes:      
