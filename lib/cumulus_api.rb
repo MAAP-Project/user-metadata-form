@@ -28,7 +28,8 @@ class CumulusApi
         {
           regex: '^(.*\\.\\w{1,})$', # make sure it has some suffix
           sampleFileName: 'test.xyz', 
-          bucket: 'internal'
+          bucket: 'internal',
+          type: 'data'
         }
       ],
       name: collection_data.short_title,
