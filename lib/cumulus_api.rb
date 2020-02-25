@@ -37,6 +37,7 @@ class CumulusApi
       granuleId: '^.+$',
       dataType: collection_data.short_title,
       provider_path: "user-added/uploaded_objects/#{collection_data.upload_directories[0]}",
+      duplicateHandling: 'replace',
       meta: { userAdded: true }
     }
   end
