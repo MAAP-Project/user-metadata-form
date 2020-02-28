@@ -95,7 +95,7 @@ production:
   <<: *default
   database: umf_production
   adapter: postgresql
-  database: maap-umf-dev
+  database: maap-umf-prod
   username: postgres
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] %>
