@@ -28,5 +28,5 @@
 public/uploads/*/*
 .env
 logfile
-build-production.sh
-build-sit.sh
+build-*.sh
+

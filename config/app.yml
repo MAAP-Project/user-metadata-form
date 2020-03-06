@@ -1,6 +1,6 @@
 default: &default
   mmt_url: http://docker.for.mac.host.internal:3000/api/collections
-  cumulus_api: https://jtovpjptc7.execute-api.us-east-1.amazonaws.com/dev
+  cumulus_api: <%= ENV['CUMULUS_REST_API'] %>
 
 development:
   <<: *default
