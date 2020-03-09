@@ -1,29 +1,25 @@
-FROM ruby:2.5.1
+FROM user-metadata-form_base
 
+ARG ENV
 ARG SECRET_KEY_BASE
-
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs 
-
-# Set an environment variable where the Rails app is installed to inside of Docker image
-ENV RAILS_ROOT /var/www/user-metadata-form
-RUN mkdir -p $RAILS_ROOT 
-
-# Set working directory
-WORKDIR $RAILS_ROOT
+ARG DATABASE_HOST
+ARG DATABASE_PASSWORD
+ARG EARTHDATA_USERNAME
+ARG EARTHDATA_PASSWORD
 
 # Setting env up
-ENV RAILS_ENV='development'
-ENV RACK_ENV='development' 
+ENV RAILS_ENV=$ENV
+ENV RACK_ENV=$ENV
 ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
-
-# Adding gems
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
-RUN bundle install --jobs 20 --retry 5 
+ENV DATABASE_HOST=$DATABASE_HOST
+ENV DATABASE_PASSWORD=$DATABASE_PASSWORD
+ENV EARTHDATA_USERNAME=$EARTHDATA_USERNAME
+ENV EARTHDATA_PASSWORD=$EARTHDATA_PASSWORD
 
 # Adding project files
 COPY . .
 RUN bundle exec rake assets:precompile
-EXPOSE 3001
+RUN bash ./run-migrations.sh
+EXPOSE 2998
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

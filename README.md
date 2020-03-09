@@ -40,48 +40,7 @@ Once all of the migration is complete, you can check if this is working or not b
 
 ## Deployment
 
-All deployed instances require `cp .env.example .env` and updating the values in `.env` with valid credentials.
-
-Deployment uses `docker-compose` to run an app (rails), web (nginx) and db (postgres) services. See required files in the [`docker/`](./docker) directory of this repo.
-
-You can build the services locally or on a remote server with the following commands:
-
-```bash
-docker-compose build --build-arg SECRET_KEY_BASE=<ADD ME>
-docker-compose run app rake db:create RAILS_ENV=production
-docker-compose run app rake db:migrate RAILS_ENV=production
-docker-compose up -d
-```
-
-To run the service on AWS EC2:
-
-1. Launch an ECS-Optimized Amazon Linux 2 AMI (most recently used `ami-0fac5486e4cff37f4`)
-2. Install `git` and `docker-compose`:
-
-```bash
-sudo yum install git -y
-sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
-
-The follow command is useful in order to update just the app service:
-
-```bash
-docker-compose build --build-arg SECRET_KEY_BASE=<ADD_ME> app
-docker-compose up --no-deps -d app
-```
-
-Additionally, to configure the https://questionnaire.maap-project.org DNS:
-
-1. Create a target group pointing to the private IP of the EC2 at port 80, say it's called `questionnaire-targets`.
-2. Find or create an ELB. The ELB configuration makes it easy to add and use the SSL certificate for the subdomain questionnaire.maap-project.org. Create 2 listeners for the ELB:
-    1. HTTP:80 Redirecting to `HTTPS://#{host}:443/#{path}?#{query}`
-    2. HTTPS:443 Forwarding to your target group, e.g. `questionnaire-targets`.
-
-### Deployment TODOs
-
-* Include instruction on generating `.env` file
-* Automate process of building
+See [MAAP Deployment Instructions for the User Metadata Form](https://github.com/MAAP-Project/maap-cmr/wiki/MAAP-Data-System-Deployment#user-metadata-form-umf).
 
 ## Built With
 
