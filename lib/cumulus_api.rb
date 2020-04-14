@@ -63,11 +63,11 @@ class CumulusApi
   end
 
   def self.authorize_url
-    "#{ENV['CUMULUS_REST_API']}/token"
+    "#{ENV['CUMULUS_API_URL']}/token"
   end
 
   def self.collections_url
-    "#{ENV['CUMULUS_REST_API']}/collections"
+    "#{ENV['CUMULUS_API_URL']}/collections"
   end  
 
   def self.auth_string
