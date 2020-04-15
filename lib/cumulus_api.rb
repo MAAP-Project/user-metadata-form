@@ -39,7 +39,12 @@ class CumulusApi
       dataType: collection_data.short_title,
       provider_path: "user-added/uploaded_objects/#{collection_data.upload_directories[0]}",
       duplicateHandling: 'replace',
-      meta: { userAdded: true }
+      meta: {
+        userAdded: true,
+        workflow_steps: {
+          sync: nil
+        }
+      }
     }
   end
 
@@ -58,11 +63,11 @@ class CumulusApi
   end
 
   def self.authorize_url
-    "#{PiQuestionnaire::Application::APP_CONFIG['cumulus_api']}/token"
+    "#{ENV['CUMULUS_API_URL']}/token"
   end
 
   def self.collections_url
-    "#{PiQuestionnaire::Application::APP_CONFIG['cumulus_api']}/collections"
+    "#{ENV['CUMULUS_API_URL']}/collections"
   end  
 
   def self.auth_string
