@@ -20,6 +20,7 @@ ENV CUMULUS_REST_API=$CUMULUS_REST_API
 
 # Adding project files
 COPY . .
+RUN bundle
 RUN bundle exec rake assets:precompile
 RUN bash ./run-migrations.sh
 EXPOSE 2998
