@@ -377,6 +377,10 @@ input[type=reset] {
     border-bottom: 3px solid var(--color-orange-dark);
 }
 
+input.finish_btn {
+  background-color: var(--color-green-light);
+  border-bottom: 3px solid var(--color-green-dark);
+}
 
 button.button,
 a.button {
