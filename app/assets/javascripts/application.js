@@ -194,10 +194,4 @@ $(document).on('turbolinks:load', ()=> {
       $instrument_fields.first().children('.remove_fields').hide();
     }
   });
-
-  $(document).on('click', '.finish_btn', (e)=> {
-    $('.confirmation_modal').modal('show');
-    $('.loader_holder').addClass('hidden');
-    e.preventDefault();
-  });
 });

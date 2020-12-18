@@ -37,10 +37,10 @@ class CumulusApi
       granuleIdExtraction: '^(.+)$',
       granuleId: '^.+$',
       dataType: collection_data.short_title,
-      provider_path: "user-added/uploaded_objects/#{collection_data.upload_directories[0]}",
       duplicateHandling: 'replace',
       meta: {
         userAdded: true,
+        provider_path: "user-added/uploaded_objects/#{collection_data.upload_directories[0]}",
         workflow_steps: {
           sync: nil
         }
@@ -63,11 +63,11 @@ class CumulusApi
   end
 
   def self.authorize_url
-    "#{ENV['CUMULUS_API_URL']}/token"
+    "#{ENV['CUMULUS_REST_API']}/token"
   end
 
   def self.collections_url
-    "#{ENV['CUMULUS_API_URL']}/collections"
+    "#{ENV['CUMULUS_REST_API']}/collections"
   end  
 
   def self.auth_string

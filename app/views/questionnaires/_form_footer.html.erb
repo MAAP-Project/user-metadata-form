@@ -1,13 +1,13 @@
 <div class='form_footer'>
   <button class='button btn btn-lg previous_btn' data-questionnaire_id="<%= questionnaire.id %>" data-previous_partial="<%= previous_partial %>">Previous</button>
-  <% if previous_partial == 'platforms' %>
+  <% if previous_partial == 'temporal_extent' %>
     <% label = 'Finish' %>
     <% class_name = 'finish_btn' %>
   <% else %>
     <% label = 'Next' %>
     <% class_name = nil %>
   <% end %>
-  <%  previous_partial == 'platforms' ? 'Finish' : 'Next' %>
+  <%  previous_partial == 'temporal_extent' ? 'Finish' : 'Next' %>
   <div class="modal fade confirmation_modal" tabindex="-1" role="dialog" id="modal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
