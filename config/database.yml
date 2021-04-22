@@ -79,12 +79,24 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-sit:
+dit:
   <<: *default
-  database: umf_sit
+  database: umf_dit
   adapter: postgresql
-  database: maap-umf-sit
-  username: postgres
+  database: maap-umf-dit
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: 5432
+  pool: 5
+  timeout: 10000
+
+uat:
+  <<: *default
+  database: umf_uat
+  adapter: postgresql
+  database: maap-umf-uat
+  username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] %>
   port: 5432
@@ -96,7 +108,7 @@ production:
   database: umf_production
   adapter: postgresql
   database: maap-umf-prod
-  username: postgres
+  username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] %>
   port: 5432
