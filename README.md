@@ -40,7 +40,7 @@ Once all of the migration is complete, you can check if this is working or not b
 
 ## Deployment
 
-See [MAAP Deployment Instructions for the User Metadata Form](https://github.com/MAAP-Project/maap-cmr/wiki/MAAP-Data-System-Deployment#user-metadata-form-umf).
+See [DEPLOYMENT.md](./DEPLOYMENT.md).
 
 ## Built With
 
