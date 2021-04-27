@@ -16,4 +16,4 @@ This will push the docker image to the ECR repository with tag `maap-umf:${ENV}`
 
 ### Deploying the User-Metadata-Form app
 
-Instructions in [maap-data-system-services](https://github.com/MAAP-Project/maap-data-system-services/blob/feature-umf_updates/DEPLOYMENT.md#5-umf-prep)
+Instructions in [maap-data-system-services](https://github.com/MAAP-Project/maap-data-system-services/blob/main/DEPLOYMENT.md#5-umf-prep)
