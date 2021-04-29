@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -e
 
 log () {
@@ -19,22 +21,22 @@ REPO_NAME="maap-umf"
 
 log "🔑 Authenticating..."
 aws ecr get-login-password \
-  --region ${AWS_REGION} \
+  --region "${AWS_REGION}" \
   | docker login \
     --username AWS \
     --password-stdin \
-    ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com
+    "${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com"
 
 log "📦 Building image..."
-docker build -f docker/app/Dockerfile -t ${REPO_NAME}:${ENV} .
+docker build -f docker/app/Dockerfile -t "${REPO_NAME}:${ENV}" .
 
 log "🏷️ Tagging image..."
 docker tag \
-  ${REPO_NAME}:${ENV} \
-  ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${ENV}
+  "${REPO_NAME}:${ENV}" \
+  "${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${ENV}"
 
 log "🚀 Pushing to ECR repo..."
 docker push \
-  ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${ENV}
+  "${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${ENV}"
 
 log "💃 Deployment Successful. 🕺"

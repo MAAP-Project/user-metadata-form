@@ -1,5 +1,17 @@
 # Deployment
-### Pushing the docker image to ECR
+
+## Build the base image
+
+```bash
+docker build -f docker/base/Dockerfile -t user-metadata-form_base .
+```
+
+## Create the ECR repository (if necessary)
+
+If an ECR repository named `maap-umf` doesn't already exist in the target AWS account,
+then you need to [create it](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html).
+
+## Pushing the docker image to ECR
 
 Set the environment variables stated in the `.env.example` file
 
@@ -8,7 +20,8 @@ Set the environment variables stated in the `.env.example` file
 `ENV`: Deployment environment (`sit`, `uat`, `production`)
 
 Run:
-``` 
+
+```bash
 ./ecr-deploy.sh
 ```
 
