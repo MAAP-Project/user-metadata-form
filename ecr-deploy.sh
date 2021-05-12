@@ -8,12 +8,12 @@ log () {
   echo "${bold}${1}${normal}" 1>&2;
 }
 
-if [ -z "${AWS_ACCOUNT}" ];
+if [ -z "${AWS_ACCOUNT_ID}" ];
 then
-  log "Missing a valid AWS_ACCOUNT env variable";
+  log "Missing a valid AWS_ACCOUNT_ID env variable";
   exit 1;
 else
-  log "Using AWS_ACCOUNT '${AWS_ACCOUNT}'";
+  log "Using AWS_ACCOUNT_ID '${AWS_ACCOUNT_ID}'";
 fi
 
 AWS_REGION=${AWS_REGION:-us-east-1}
@@ -25,7 +25,7 @@ aws ecr get-login-password \
   | docker login \
     --username AWS \
     --password-stdin \
-    "${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+    "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
 
 log "📦 Building image..."
 docker build -f docker/app/Dockerfile -t "${REPO_NAME}:${ENV}" .
@@ -33,10 +33,10 @@ docker build -f docker/app/Dockerfile -t "${REPO_NAME}:${ENV}" .
 log "🏷️ Tagging image..."
 docker tag \
   "${REPO_NAME}:${ENV}" \
-  "${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${ENV}"
+  "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${ENV}"
 
 log "🚀 Pushing to ECR repo..."
 docker push \
-  "${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${ENV}"
+  "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO_NAME}:${ENV}"
 
 log "💃 Deployment Successful. 🕺"
