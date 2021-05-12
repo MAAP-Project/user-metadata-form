@@ -25,7 +25,8 @@ Rails.application.configure do
   config.secret_key_base = ENV["SECRET_KEY_BASE"]
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = Uglifier.new(:harmony => true)
+  # TODO(Aimee): This raises JSON::ParserError: 416: unexpected token at '{"code" so commenting out for now
+  # config.assets.js_compressor = Uglifier.new(:harmony => true)
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
