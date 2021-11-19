@@ -20,3 +20,6 @@ jobs:
       - run: bundle config set with 'development'
       - run: bundle install
       - run: bundle-audit check
+      - run: brakeman --no-pager
+      # too many warnings for rubocop to be useful
+      # - run: bundle exec rubocop .
