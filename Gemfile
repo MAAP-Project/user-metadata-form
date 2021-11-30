@@ -84,6 +84,10 @@ group :development do
   gem 'capistrano3-unicorn'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  
+  gem 'rubocop'
+  gem 'bundler-audit'
+  gem 'brakeman'
 end
 
 group :test do

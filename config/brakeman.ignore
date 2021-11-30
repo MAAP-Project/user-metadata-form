@@ -1,0 +1,66 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "1cd3928727015973cc481ef735089ed4e5e0b419e1df35df725cf150949609ea",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/questionnaires_controller.rb",
+      "line": 77,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "Questionnaire.find(params[:id]).send(params[:current_partial]).send(params[\"document\"])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "QuestionnairesController",
+        "method": "files"
+      },
+      "user_input": "params[\"document\"]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "1cd3928727015973cc481ef735089ed4e5e0b419e1df35df725cf150949609ea",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/questionnaires_controller.rb",
+      "line": 84,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "Questionnaire.find(params[:id]).send(params[:current_partial]).send(params[\"document\"])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "QuestionnairesController",
+        "method": "files"
+      },
+      "user_input": "params[\"document\"]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "warning_code": 23,
+      "fingerprint": "9f270c9bbd7426e34d4c639d95127c61a03653666784e119e24a39942b48ecdd",
+      "check_name": "Send",
+      "message": "User controlled method execution",
+      "file": "app/controllers/questionnaires_controller.rb",
+      "line": 73,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_send/",
+      "code": "Questionnaire.find(params[:id]).send(params[:current_partial])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "QuestionnairesController",
+        "method": "files"
+      },
+      "user_input": "params[:current_partial]",
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2021-11-19 10:16:54 -0500",
+  "brakeman_version": "5.1.2"
+}
