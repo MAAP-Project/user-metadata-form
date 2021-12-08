@@ -23,7 +23,7 @@ pip install -r requirements.txt
 npm install
 ```
 
-2. CDK bootstrap. This step is only necessary once per AWS account / region combination.
+2. Conditional on the AWS account and region, run CDK bootstrap. This step is only necessary once per AWS account / region combination.
 
 ```
 AWS_REGION=us-west-2
