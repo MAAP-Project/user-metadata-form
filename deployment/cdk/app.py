@@ -110,8 +110,8 @@ class UmfStack(core.Stack):
         core.CfnOutput(self, "ClusterArn", value=cluster.cluster_arn)
 
         task_env = {}
-        task_env["RAILS_LOG_TO_STDOUT"] = "true"
-        task_env["LOG_LEVEL"] = "debug"
+        # task_env["RAILS_LOG_TO_STDOUT"] = "true"
+        task_env["LOG_LEVEL"] = "error"
         task_env["ENV"] = settings.stage
         task_env["RAILS_ENV"] = settings.stage
         # to serve css, etc., assets
