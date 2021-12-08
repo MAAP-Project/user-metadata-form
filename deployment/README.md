@@ -1,12 +1,6 @@
 # User Metadata Form Deployment
 
-## Overview
-
-
-
-## Deployment
-
-0. to deploy a new stage, You must also create an environment file in `config/environments/`, e.g.:
+0. To deploy a new stage, You must also create an environment file in `config/environments/`, e.g.:
 
 ```bash
 cp config/environments/dit.rb config/environments/aimee.rb
@@ -15,7 +9,7 @@ cp config/environments/dit.rb config/environments/aimee.rb
 1. Initial setup
 
 ```bash
-# clone forked umf repo
+# clone User Metadata Form repo
 git clone https://github.com/MAAP-Project/user-metadata-form
 
 cd user-metadata-form/deployment
