@@ -156,7 +156,7 @@ class UmfStack(core.Stack):
         )
 
         if settings.stage == "production":
-            hostname_part = ".ops"
+            hostname_part = ""
         else:
             hostname_part = f".{settings.stage}"
 
@@ -167,7 +167,7 @@ class UmfStack(core.Stack):
             desired_count=mincount,
             public_load_balancer=True,
             protocol=elb.ApplicationProtocol.HTTPS,
-            domain_name=f"umf{hostname_part}.maap-project.org",
+            domain_name=f"questionnaire{hostname_part}.maap-project.org",
             domain_zone=aws_route53.HostedZone.from_lookup(
                 self, f"{stack_id}-hosted-zone",
                 domain_name="maap-project.org"),
