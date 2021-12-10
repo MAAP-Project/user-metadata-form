@@ -110,12 +110,16 @@ class UmfStack(core.Stack):
         core.CfnOutput(self, "ClusterArn", value=cluster.cluster_arn)
 
         task_env = {}
-        # task_env["RAILS_LOG_TO_STDOUT"] = "true"
+        
+        task_env["RAILS_LOG_TO_STDOUT"] = "true"
         task_env["LOG_LEVEL"] = "error"
+        
         task_env["ENV"] = settings.stage
         task_env["RAILS_ENV"] = settings.stage
+
         # to serve css, etc., assets
         task_env["RAILS_SERVE_STATIC_FILES"] = "true"
+
         task_env["DATABASE_HOST"] = db.db_instance_endpoint_address
         task_env["DATABASE_NAME"] = "umf"
         task_env["DATABASE_USERNAME"] = db_username
