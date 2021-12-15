@@ -4,7 +4,7 @@
 <div class='body'>
   <p>
     A questionnaire response with uuid <%= @questionnaire.uid %> was submitted at <%= @questionnaire.updated_at.strftime('%H:%M %b %d, %Y %Z') %>.
-    You can view the response <a href="https://questionnaire.maap-project.net/api/v1/questionnaire/<%= @questionnaire.uid %>.json">here</a> . Keep in mind you will need the api key for this.
+    You can view the response <a href="https://questionnaire.maap-project.org/api/v1/questionnaires/<%= @questionnaire.uid %>.json">here</a> . Keep in mind you will need the api key for this.
   </p>
   <p>
     This is an automated message. Do not reply to this email. If you have questions, please email <a href="email:ig0004@uah.edu">ig0004@uah.edu</a> .

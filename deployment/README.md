@@ -51,7 +51,7 @@ aws ssm put-parameter \
     --type "SecureString" \
     --overwrite \
     --name "/${UMF_STACK_STAGE}-maap-umf/EARTHDATA_PASSWORD" \
-    --value "<the password>"
+    --value '<the password>'
 
 aws ssm put-parameter \
     --type "String" \
@@ -63,7 +63,7 @@ aws ssm put-parameter \
     --type "SecureString" \
     --overwrite \
     --name "/${UMF_STACK_STAGE}-maap-umf/SECRET_KEY_BASE" \
-    --value "<the secret key base>"
+    --value '<the secret key base>'
 ```
 
 4. Generate CloudFormation template

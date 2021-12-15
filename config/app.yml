@@ -7,6 +7,10 @@ development:
 test:
   <<: *default
 
+dit:
+  <<: *default
+  mmt_url: https://mmt.maap-project.org/api/collections
+
 sit:
   <<: *default
   mmt_url: https://sit-mmt.maap-project.org/api/collections
