@@ -1,3 +1,4 @@
+Gemfile.lock
 *.env
 node_modules
 cdk.out
