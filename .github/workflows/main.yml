@@ -42,9 +42,12 @@ jobs:
 
       - run: pip install -r requirements.txt
         working-directory: ./deployment
+
       - run: npm install
         working-directory: ./deployment
+      
       - run: npm install -g aws-cdk
         working-directory: ./deployment
+      
       - run: cdk deploy --all --require-approval never --no-color
         working-directory: ./deployment
