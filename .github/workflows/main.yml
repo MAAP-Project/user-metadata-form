@@ -10,9 +10,9 @@ on:
       - master
 env:
   UMF_STACK_STAGE: dit # todo: use branch
-  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_REGION: us-west-2
   CDK_DEPLOY_ACCOUNT: ${{ secrets.CDK_DEPLOY_ACCOUNT }}
-  CDK_DEPLOY_REGION: ${{ secrets.AWS_REGION }}
+  CDK_DEPLOY_REGION: us-west-2
 
 jobs:
   deploy:
