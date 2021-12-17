@@ -19,9 +19,7 @@ jobs:
           bundler-cache: true
       - run: bundle config set with 'development'
       - run: bundle install
-      - run: bundle config unset deployment
-      - run: bundle update 
-      - run: bundle-audit check
-      - run: brakeman --no-pager
+      - run: bundle exec bundler-audit check  --update
+      - run: bundle exec brakeman --no-pager
       # too many warnings for rubocop to be useful
       # - run: bundle exec rubocop .
