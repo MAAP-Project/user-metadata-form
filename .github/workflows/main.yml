@@ -17,6 +17,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "${{ github.ref }}"
+
       - name: Sets env vars for cdk-deployment -> dit
         run: |
           echo "UMF_STACK_STAGE=dit" >> $GITHUB_ENV
