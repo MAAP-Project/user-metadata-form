@@ -19,10 +19,9 @@ jobs:
     steps:
       - run: echo "${{ github.ref }}"
 
-      - name: Sets env vars for cdk-deployment -> dit
+      - name: Sets env vars for any branch -> dit
         run: |
           echo "UMF_STACK_STAGE=dit" >> $GITHUB_ENV
-        if: ${{ github.ref == 'refs/heads/cdk-deployment' }}
 
       - name: Sets env vars for master -> dit
         run: |
