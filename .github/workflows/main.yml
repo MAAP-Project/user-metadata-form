@@ -4,7 +4,10 @@ on:
     branches:
       - main
       - staging
-
+  # todo: remove PR run    
+  pull_request:
+    branches:
+      - master
 env:
   UMF_STACK_STAGE: dit # todo: use branch
   AWS_REGION: ${{ secrets.AWS_REGION }}
