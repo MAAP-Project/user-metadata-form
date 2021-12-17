@@ -8,7 +8,7 @@ This repo is a fork of /pi-questionnaire and the following Readme has not been c
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to [deploy](#deployment) the project on a live system.
 
-1. Clone this repo `git clone git@github.com:NASA-IMPACT/user-metadata-form.git`
+1. Clone this repo `git clone git@github.com:MAAP-Project/user-metadata-form.git`
 2. `cd user-metadata-form`
 
 ### Prerequisites
@@ -52,7 +52,7 @@ See [deployment/README.md](./deployment/README.md).
 To make your changes:
 
 1. Fork this repo.
-2. If you are working on a feature, use the naming convention `feature-<feature name>`, if it's a bug use `bug-<name>`. (please make sure there is a corresponding issue listed at https://github.com/nasa-impact/pi_questionnaire/issues before working on the changes.)
+2. If you are working on a feature, use the naming convention `feature-<feature name>`, if it's a bug use `bug-<name>`. (please make sure there is a corresponding issue listed at https://github.com/MAAP-Project/user-metadata-form/issues before working on the changes.)
 3. Create a pull request against the master branch of this repo.
 
 ## License
