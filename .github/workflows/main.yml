@@ -4,10 +4,11 @@ on:
     branches:
       - master
       - staging
-  # todo: remove PR run    
-  pull_request:
-    branches:
-      - master
+  # re-enable to PR trigger when testing this action
+  # pull_request:
+  #   branches:
+  #     - master
+
 env:
   AWS_REGION: us-west-2
   CDK_DEPLOY_ACCOUNT: ${{ secrets.CDK_DEPLOY_ACCOUNT }}
@@ -22,11 +23,6 @@ jobs:
       - name: Sets env vars for any branch -> dit
         run: |
           echo "UMF_STACK_STAGE=dit" >> $GITHUB_ENV
-
-      - name: Sets env vars for master -> dit
-        run: |
-          echo "UMF_STACK_STAGE=dit" >> $GITHUB_ENV
-        if: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Sets env vars for staging -> staging
         run: |
