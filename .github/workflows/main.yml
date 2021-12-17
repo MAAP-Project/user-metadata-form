@@ -2,14 +2,13 @@ name: Deploy
 on:
   push:
     branches:
-      - main
+      - master
       - staging
   # todo: remove PR run    
   pull_request:
     branches:
       - master
 env:
-  UMF_STACK_STAGE: dit # todo: use branch
   AWS_REGION: us-west-2
   CDK_DEPLOY_ACCOUNT: ${{ secrets.CDK_DEPLOY_ACCOUNT }}
   CDK_DEPLOY_REGION: us-west-2
@@ -18,10 +17,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+      - name: Sets env vars for cdk-deployment -> dit
+        run: |
+          echo "UMF_STACK_STAGE=dit" >> $GITHUB_ENV
+        if: ${{ github.ref == 'refs/heads/cdk-deployment' }}
+
+      - name: Sets env vars for master -> dit
+        run: |
+          echo "UMF_STACK_STAGE=dit" >> $GITHUB_ENV
+        if: ${{ github.ref == 'refs/heads/master' }}
+
+      - name: Sets env vars for staging -> staging
+        run: |
+          echo "UMF_STACK_STAGE=staging" >> $GITHUB_ENV
+        if: ${{ github.ref == 'refs/heads/staging' }}
 
       - name: Configure AWS credentials from AWS Account
         uses: aws-actions/configure-aws-credentials@v1
