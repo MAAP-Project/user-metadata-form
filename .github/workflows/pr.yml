@@ -19,6 +19,7 @@ jobs:
           bundler-cache: true
       - run: bundle config set with 'development'
       - run: bundle install
+      - run: bundle config unset deployment
       - run: bundle update 
       - run: bundle-audit check
       - run: brakeman --no-pager
