@@ -20,11 +20,10 @@ default: &default
   username: postgres  
   password: postgres
   pool: 5  
-  host: db 
 
 development:
   <<: *default
-  database: pi_questionnaire_development
+  database: umf_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -58,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: pi_questionnaire_test
+  database: umf_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -83,7 +82,6 @@ dit:
   <<: *default
   database: umf_dit
   adapter: postgresql
-  database: maap-umf-dit
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] %>
@@ -95,7 +93,6 @@ uat:
   <<: *default
   database: umf_uat
   adapter: postgresql
-  database: maap-umf-uat
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] %>
@@ -107,7 +104,6 @@ production:
   <<: *default
   database: umf_production
   adapter: postgresql
-  database: maap-umf-prod
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: <%= ENV['DATABASE_HOST'] %>

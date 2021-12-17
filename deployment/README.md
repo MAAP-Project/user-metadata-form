@@ -1,5 +1,8 @@
 # User Metadata Form Deployment
 
+Deployment of the UMF uses the AWS CDK v1. Ignore the warning that AWS CDK v2 is available, until a proper
+upgrade can be made of both this project and other CDK projects.
+
 0. To deploy a new stage, You must also create an environment file in `config/environments/`, e.g.:
 
 ```bash
@@ -25,7 +28,7 @@ npm install
 
 2. Conditional on the AWS account and region, run CDK bootstrap. This step is only necessary once per AWS account / region combination.
 
-```
+```bash
 AWS_REGION=us-west-2
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity | jq .Account -r)
 npm run cdk bootstrap aws://${AWS_ACCOUNT_ID}/${AWS_REGION}
