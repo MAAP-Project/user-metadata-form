@@ -23,7 +23,7 @@ class CreateDraftJob < ApplicationJob
         body: output,
         headers: { 'Content-Type': 'application/json' }
       )
-    Rails.logger.info "Created MMT PI questionnaire #{questionnaire.uid}: #{mmt_response}"
+    Rails.logger.info "Created draft collection in MMT from questionnaire #{questionnaire.uid}: #{mmt_response}"
 
     NotificationMailer.questionnaire_filled(
       uuid: questionnaire.uid
