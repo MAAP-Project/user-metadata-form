@@ -1,6 +1,0 @@
-set -u
-docker-compose build \
-  --build-arg ENV=development \
-  --build-arg CUMULUS_REST_API=${CUMULUS_REST_API} \
-  --build-arg EARTHDATA_USERNAME=${EARTHDATA_USERNAME} \
-  --build-arg EARTHDATA_PASSWORD=${EARTHDATA_PASSWORD}
