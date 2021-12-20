@@ -9,7 +9,7 @@ test:
 
 dit:
   <<: *default
-  mmt_url: https://mmt.dit.maap-project.org/api/collections
+  mmt_url: https://mmt.maap-project.org/api/collections
 
 sit:
   <<: *default
