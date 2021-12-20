@@ -34,7 +34,7 @@ Then we need to install the gems used in the project, prepare the database etc.
 1. The postgres user has create, and modify privileges.
 2. Postgres is running in the background.
 
-Once all of the migration is complete, you can check if this is working or not by starting the server. You can do so by using `rails s`. This will start the server in port 2998. Go to your browser, navigate to `localhost:2998`. You should be able to see the following page.
+Once the migration is complete, check configuration by starting the server. Start the server by entering `rails s` in a terminal. This will start the server at port 2998. Go to your browser, navigate to `localhost:2998`. You should be able to see the following page:
 
 ![screenshot_home.jpg](./images/screenshot_home.png)
 
