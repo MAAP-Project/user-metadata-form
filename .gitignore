@@ -35,3 +35,5 @@ public/uploads/*/*
 logfile
 build-*.sh
 
+deployment/cdk.context.json
+deployment/cdk/__pycache__
