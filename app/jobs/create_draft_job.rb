@@ -23,14 +23,12 @@ class CreateDraftJob < ApplicationJob
         body: output,
         headers: { 'Content-Type': 'application/json' }
       )
-    Rails.logger.info "Body is #{output}"
-    Rails.logger.info "MMT URL set to #{PiQuestionnaire::Application::APP_CONFIG['mmt_url']}"
     Rails.logger.info "Created draft collection in MMT from questionnaire #{questionnaire.uid}: #{mmt_response}"
 
-    # NotificationMailer.questionnaire_filled(
-    #   uuid: questionnaire.uid
-    # ).deliver_now
-    # Rails.logger.info "Sent email notification for #{questionnaire.uid}"
+    NotificationMailer.questionnaire_filled(
+      uuid: questionnaire.uid
+    ).deliver_now
+    Rails.logger.info "Sent email notification for #{questionnaire.uid}"
 
   end
 end
