@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - staging
+      - dit
   # re-enable to PR trigger when testing this action
   # pull_request:
   #   branches:

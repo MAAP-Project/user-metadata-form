@@ -60,6 +60,7 @@ aws ssm put-parameter \
     --type "String" \
     --overwrite \
     --name "/${UMF_STACK_STAGE}-maap-umf/CUMULUS_REST_API" \
+    # TODO: Fetch this from api gateway via AWS CLI
     --value "https://z4eaw8vft6.execute-api.us-west-2.amazonaws.com/dev/"
 
 aws ssm put-parameter \
