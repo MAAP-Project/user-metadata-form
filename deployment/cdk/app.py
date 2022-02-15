@@ -170,7 +170,7 @@ class UmfStack(core.Stack):
             logging=ecs.LogDrivers.aws_logs(stream_prefix=stack_id)
         )
 
-        if settings.certificate_arn is not None and settings.certificate_arn != '':
+        if settings.certificate_arn:
             certificate=certificatemanager.Certificate.from_certificate_arn(
                 self,
                 f"mmt-{settings.stage}-certificate",
