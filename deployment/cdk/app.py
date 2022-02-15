@@ -11,12 +11,12 @@ from aws_cdk import (
     aws_ec2 as ec2,
     aws_ecs as ecs,
     aws_rds as rds,
-    aws_route53,
     aws_ecs_patterns as ecs_patterns,
     aws_ecr_assets as ecr_assets,
     aws_iam as iam,
     aws_elasticloadbalancingv2 as elb,
-    aws_ssm as ssm
+    aws_ssm as ssm,
+    aws_certificatemanager as certificatemanager
 )
 
 settings = StackSettings()
@@ -44,7 +44,18 @@ class UmfStack(core.Stack):
 
         app_port = 2998
 
-        vpc = ec2.Vpc(self, f"{stack_id}-vpc", max_azs=2)
+        if settings.permissions_boundary_name is not None:
+            boundary = iam.ManagedPolicy.from_managed_policy_name(
+                self,
+                'Boundary',
+                settings.permissions_boundary_name
+            )
+            iam.PermissionsBoundary.of(self).apply(boundary)
+
+        if settings.vpc_id is not None:
+            vpc = ec2.Vpc.from_lookup(self, 'VPC', vpc_id=settings.vpc_id)
+        else:
+            vpc = ec2.Vpc(self, f"{stack_id}-vpc")
 
         db_admin_credentials_secret = rds.DatabaseSecret(
             self, f"/{stack_id}/AdminDBCredentials", username="postgres")
@@ -110,10 +121,10 @@ class UmfStack(core.Stack):
         core.CfnOutput(self, "ClusterArn", value=cluster.cluster_arn)
 
         task_env = {}
-        
+
         task_env["RAILS_LOG_TO_STDOUT"] = "true"
         task_env["LOG_LEVEL"] = "error"
-        
+
         task_env["ENV"] = settings.stage
         task_env["RAILS_ENV"] = settings.stage
 
@@ -159,10 +170,12 @@ class UmfStack(core.Stack):
             logging=ecs.LogDrivers.aws_logs(stream_prefix=stack_id)
         )
 
-        if settings.stage == "production":
-            hostname_part = ""
-        else:
-            hostname_part = f".{settings.stage}"
+        if settings.certificate_arn:
+            certificate=certificatemanager.Certificate.from_certificate_arn(
+                self,
+                f"mmt-{settings.stage}-certificate",
+                settings.certificate_arn
+            )
 
         fargate_service = ecs_patterns.ApplicationLoadBalancedFargateService(
             self,
@@ -171,12 +184,9 @@ class UmfStack(core.Stack):
             desired_count=mincount,
             public_load_balancer=True,
             protocol=elb.ApplicationProtocol.HTTPS,
-            domain_name=f"questionnaire{hostname_part}.maap-project.org",
-            domain_zone=aws_route53.HostedZone.from_lookup(
-                self, f"{stack_id}-hosted-zone",
-                domain_name="maap-project.org"),
             redirect_http=True,
-            task_definition=task_definition
+            task_definition=task_definition,
+            certificate=certificate
         )
 
         fargate_service.target_group.configure_health_check(
