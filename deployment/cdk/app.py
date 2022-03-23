@@ -4,7 +4,7 @@ import os
 from os import path
 from typing import Any, List, Optional, Union
 
-from config import StackSettings
+from config import StackSettings, DeploymentSettings
 
 from aws_cdk import (
     core,
@@ -20,7 +20,7 @@ from aws_cdk import (
 )
 
 settings = StackSettings()
-
+deployment_settings = DeploymentSettings(_secrets_dir=f"{settings.stage}/umf")
 
 class UmfStack(core.Stack):
     """UMF ECS Fargate Stack."""
@@ -44,16 +44,16 @@ class UmfStack(core.Stack):
 
         app_port = 2998
 
-        if settings.permissions_boundary_name is not None:
+        if deployment_settings.permissions_boundary_name is not None:
             boundary = iam.ManagedPolicy.from_managed_policy_name(
                 self,
                 'Boundary',
-                settings.permissions_boundary_name
+                deployment_settings.permissions_boundary_name
             )
             iam.PermissionsBoundary.of(self).apply(boundary)
 
-        if settings.vpc_id is not None:
-            vpc = ec2.Vpc.from_lookup(self, 'VPC', vpc_id=settings.vpc_id)
+        if deployment_settings.vpc_id is not None:
+            vpc = ec2.Vpc.from_lookup(self, 'VPC', vpc_id=deployment_settings.vpc_id)
         else:
             vpc = ec2.Vpc(self, f"{stack_id}-vpc")
 
@@ -170,11 +170,11 @@ class UmfStack(core.Stack):
             logging=ecs.LogDrivers.aws_logs(stream_prefix=stack_id)
         )
 
-        if settings.certificate_arn:
+        if deployment_settings.certificate_arn:
             certificate=certificatemanager.Certificate.from_certificate_arn(
                 self,
                 f"mmt-{settings.stage}-certificate",
-                settings.certificate_arn
+                deployment_settings.certificate_arn
             )
 
         fargate_service = ecs_patterns.ApplicationLoadBalancedFargateService(
@@ -236,10 +236,10 @@ for key, value in {
 UmfStack(
     scope=app,
     stack_id=f"{settings.stage}-{settings.name}",
-    cpu=settings.task_cpu,
-    memory=settings.task_memory,
-    mincount=settings.min_ecs_instances,
-    maxcount=settings.max_ecs_instances,
+    cpu=deployment_settings.task_cpu,
+    memory=deployment_settings.task_memory,
+    mincount=deployment_settings.min_ecs_instances,
+    maxcount=deployment_settings.max_ecs_instances,
     permissions=[],
     env=core.Environment(
         account=os.environ.get(
