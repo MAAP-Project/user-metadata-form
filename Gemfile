@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.6'
+gem 'rails', '~> 5.2.6.3'
 
 gem 'jquery-rails', '~> 4.4.0'
 
@@ -10,7 +10,7 @@ gem 'jquery-rails', '~> 4.4.0'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Use Puma as the app server
-gem 'puma', '~> 4.3.10'
+gem 'puma', '~> 4.3.11'
 gem 'unicorn'
 
 # Use SCSS for stylesheets
@@ -24,6 +24,7 @@ gem 'cocoon'
 gem 'httparty'
 
 # uploader
+gem 'image_processing', '>= 1.12.2'
 gem 'carrierwave-aws'
 
 gem 'remotipart'
@@ -72,7 +73,7 @@ group :development do
   gem 'capistrano3-unicorn'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  
+
   gem 'rubocop'
   gem 'bundler-audit'
   gem 'brakeman'
