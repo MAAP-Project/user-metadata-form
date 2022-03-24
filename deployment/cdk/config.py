@@ -3,8 +3,6 @@
 from typing import Optional
 
 import pydantic
-from pydantic_ssm_settings import AwsSsmSourceConfig
-
 
 class StackSettings(pydantic.BaseSettings):
     """Application settings"""
