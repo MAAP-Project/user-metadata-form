@@ -87,9 +87,10 @@ The list of supported deployment configuration values can be found in [`cdk/conf
 
 Configuration is managed via `pydantic` and can be specified as [outlined in their documentation](https://pydantic-docs.helpmanual.io/usage/settings/).
 
-Whether you are using environment variables or a `.env` file to specify configuration, the
+Whether you are using environment variables or an `.env` file to specify configuration, the
 prefix for values should be `UMF_STACK_`. So to specify a value for the `stage` setting, you
-would specify a `UMF_STACK_stage` value as an environment variable, in `.env`, or otherwise.
+would specify a `UMF_STACK_stage` value as an environment variable, in `.env`, or via any other
+method supported by `pydantic`.
 
 ## Backing up deployment configuration to AWS SSM
 
