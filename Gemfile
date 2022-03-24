@@ -52,6 +52,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-bootbox'
   gem 'rails-assets-select2'
   gem 'rails-assets-datatable'
+  gem 'rails-assets-jquery'
   gem 'rails-assets-jquery-validate'
 end
 
