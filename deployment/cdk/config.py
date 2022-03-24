@@ -15,15 +15,6 @@ class StackSettings(pydantic.BaseSettings):
     owner: Optional[str]
     client: Optional[str]
 
-    class Config(AwsSsmSourceConfig):
-        """model config"""
-
-        env_file = ".env"
-        env_prefix = "UMF_STACK_"
-
-class DeploymentSettings(pydantic.BaseSettings):
-    """Deployment settings"""
-
     # AWS ECS settings
     min_ecs_instances: int = 2
     max_ecs_instances: int = 10
