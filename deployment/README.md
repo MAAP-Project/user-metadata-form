@@ -81,7 +81,41 @@ export AWS_REGION=us-west-2
 npm run cdk synth
 ```
 
-5. Deploy the App
+5. Set deployment configuration
+
+The list of supported deployment configuration values can be found in [`cdk/config.py`](./cdk/config.py).
+
+Configuration is managed via `pydantic` and can be specified as [outlined in their documentation](https://pydantic-docs.helpmanual.io/usage/settings/).
+
+Whether you are using environment variables or an `.env` file to specify configuration, the
+prefix for values should be `UMF_STACK_`. So to specify a value for the `stage` setting, you
+would specify a `UMF_STACK_stage` value as an environment variable, in `.env`, or via any other
+method supported by `pydantic`.
+
+## Backing up deployment configuration to AWS SSM
+
+We are using the [`pydantic-ssm-settings` package](https://github.com/developmentseed/pydantic-ssm-settings), which allows us to backup up our `pydantic` configuration values
+specified via an `.env` file to AWS SSM and have them lazily loaded if no other value is
+specified for a setting.
+
+To backup configuration from `.env` to SSM (where `<stage-name>` is `production`, `dit`, etc and should match the `UMF_STACK_stage` for your deployment):
+
+```shell
+python scripts/dotenv-to-ssm.py .env /<stage-name>/umf
+```
+
+Once the configuration has been backed up to SSM, any value stored in SSM will be automatically
+read by your deployment if it is not specified otherwise. Ideally, once a deployment has been
+performed and its configuration has been backed up to SSM, subsequent deployments should only
+need to specify new or changing configuration.
+
+You will need to specify the stage name (`UMF_STACK_stage`) either via `.env` or environment
+variable in order for the SSM integration to work.
+
+If you make any configuration change to a deployment that you intend to be permanent, you
+should re-run the above command to back up the configuration to SSM.
+
+6. Deploy the App
 
 This step deploy the application stack.
 
@@ -96,7 +130,7 @@ npm run cdk deploy -- --require-approval never
 
 This application stack contains a Postgres database, generates a Docker image for the application, configures an ECS Task Definition that uses that image, creates an ECS Service that uses that Task Definition, configures an application load balancer (ALB) to point to the ECS Service, and configures a custom DNS entry for the service.
 
-6. Undeploy (optional)
+7. Undeploy (optional)
 
 ```bash
 export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity | jq .Account -r)
