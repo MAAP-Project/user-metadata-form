@@ -6,6 +6,9 @@ aws-cdk.aws_ec2~=1.134.0
 aws-cdk.aws_autoscaling~=1.134.0
 aws-cdk.aws-rds~=1.134.0
 
+boto3~=1.18.1
+click~=8.0.4
+
 # pydantic settings
 pydantic
 python-dotenv
