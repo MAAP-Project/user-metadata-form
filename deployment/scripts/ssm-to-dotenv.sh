@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# ./scripts/ssm-to-dotenv.sh /csdap-orders/staging
+# ./scripts/ssm-to-dotenv.sh /<stage-name>/umf
 
 set -o pipefail
 
