@@ -20,7 +20,6 @@ from aws_cdk import (
 )
 
 settings = StackSettings()
-# deployment_settings = DeploymentSettings(_secrets_dir=f"/{settings.stage}/umf")
 
 class UmfStack(core.Stack):
     """UMF ECS Fargate Stack."""

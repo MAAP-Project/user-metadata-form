@@ -26,7 +26,7 @@ class StackSettings(pydantic.BaseSettings):
     permissions_boundary_name: Optional[str]
     vpc_id: Optional[str]
 
-    class Config(AwsSsmSourceConfig):
+    class Config():
         """model config"""
 
         env_file = ".env"

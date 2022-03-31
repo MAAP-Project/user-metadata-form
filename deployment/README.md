@@ -94,26 +94,23 @@ method supported by `pydantic`.
 
 ## Backing up deployment configuration to AWS SSM
 
-We are using the [`pydantic-ssm-settings` package](https://github.com/developmentseed/pydantic-ssm-settings), which allows us to backup up our `pydantic` configuration values
-specified via an `.env` file to AWS SSM and have them lazily loaded if no other value is
-specified for a setting.
-
 To backup configuration from `.env` to SSM (where `<stage-name>` is `production`, `dit`, etc and should match the `UMF_STACK_stage` for your deployment):
 
 ```shell
 python scripts/dotenv-to-ssm.py .env /<stage-name>/umf
 ```
 
-Once the configuration has been backed up to SSM, any value stored in SSM will be automatically
-read by your deployment if it is not specified otherwise. Ideally, once a deployment has been
-performed and its configuration has been backed up to SSM, subsequent deployments should only
-need to specify new or changing configuration.
-
-You will need to specify the stage name (`UMF_STACK_stage`) either via `.env` or environment
-variable in order for the SSM integration to work.
-
 If you make any configuration change to a deployment that you intend to be permanent, you
 should re-run the above command to back up the configuration to SSM.
+
+## Reading deployment configuration from AWS SSM
+
+To read previously saved deployment configuration from AWS SSM and save it to your local `.env`
+file:
+
+```shell
+bash scripts/ssm-to-dotenv.sh /<stage-name>/umf > .env
+```
 
 6. Deploy the App
 
