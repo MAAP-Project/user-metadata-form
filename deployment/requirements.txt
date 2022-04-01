@@ -8,7 +8,6 @@ aws-cdk.aws-rds~=1.134.0
 
 boto3~=1.18.1
 click~=8.0.4
-git+https://github.com/developmentseed/pydantic-ssm-settings@master#egg=pydantic-ssm-settings
 
 # pydantic settings
 pydantic

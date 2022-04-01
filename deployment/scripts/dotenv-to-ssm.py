@@ -38,9 +38,6 @@ def load(dotenv_file: click.Path, prefix: click.Path, **kwargs):
                 Name=str(path),
                 Description="Created by the dotenv-to-ssm script.",
                 Value=v,
-                Tags=[
-                    {"Key": "author", "Value": "string"},
-                ],
                 **kwargs,
             )
             print(f"Created {path}")

@@ -3,13 +3,15 @@
 Deployment of the UMF uses the AWS CDK v1. Ignore the warning that AWS CDK v2 is available, until a proper
 upgrade can be made of both this project and other CDK projects.
 
-0. To deploy a new stage, You must also create an environment file in `config/environments/`, e.g.:
+## 0. Create an environment file
+
+To deploy a new stage, You must also create an environment file in `config/environments/`, e.g.:
 
 ```bash
 cp config/environments/dit.rb config/environments/aimee.rb
 ```
 
-1. Initial setup
+## 1. Initial setup
 
 ```bash
 # clone User Metadata Form repo
@@ -26,7 +28,7 @@ pip install -r requirements.txt
 npm install
 ```
 
-2. Conditional on the AWS account and region, run CDK bootstrap. This step is only necessary once per AWS account / region combination.
+## 2. Conditional on the AWS account and region, run CDK bootstrap. This step is only necessary once per AWS account / region combination.
 
 ```bash
 AWS_REGION=us-west-2
@@ -34,7 +36,7 @@ AWS_ACCOUNT_ID=$(aws sts get-caller-identity | jq .Account -r)
 npm run cdk bootstrap aws://${AWS_ACCOUNT_ID}/${AWS_REGION}
 ```
 
-3. Populate Secrets and Parameters
+## 3. Populate Secrets and Parameters
 
 First, check if these secrets have been populated in AWS Secrets Manager. If not, create them as below.
 
@@ -70,7 +72,7 @@ aws ssm put-parameter \
     --value '<the secret key base>'
 ```
 
-4. Generate CloudFormation template
+## 4. Generate CloudFormation template
 
 This step isn't required, but can be useful to just validate the configuration generates
 a valid CloudFormation template.
@@ -81,7 +83,7 @@ export AWS_REGION=us-west-2
 npm run cdk synth
 ```
 
-5. Set deployment configuration
+## 5. Set deployment configuration
 
 The list of supported deployment configuration values can be found in [`cdk/config.py`](./cdk/config.py).
 
@@ -92,11 +94,10 @@ prefix for values should be `UMF_STACK_`. So to specify a value for the `stage` 
 would specify a `UMF_STACK_stage` value as an environment variable, in `.env`, or via any other
 method supported by `pydantic`.
 
-## Backing up deployment configuration to AWS SSM
+If this application has been previously deployed to your target account, you should try [loading
+the existing deployment configuration from AWS SSM using the command below](#reading-deployment-configuration-from-aws-ssm).
 
-We are using the [`pydantic-ssm-settings` package](https://github.com/developmentseed/pydantic-ssm-settings), which allows us to backup up our `pydantic` configuration values
-specified via an `.env` file to AWS SSM and have them lazily loaded if no other value is
-specified for a setting.
+### Backing up deployment configuration to AWS SSM
 
 To backup configuration from `.env` to SSM (where `<stage-name>` is `production`, `dit`, etc and should match the `UMF_STACK_stage` for your deployment):
 
@@ -104,18 +105,19 @@ To backup configuration from `.env` to SSM (where `<stage-name>` is `production`
 python scripts/dotenv-to-ssm.py .env /<stage-name>/umf
 ```
 
-Once the configuration has been backed up to SSM, any value stored in SSM will be automatically
-read by your deployment if it is not specified otherwise. Ideally, once a deployment has been
-performed and its configuration has been backed up to SSM, subsequent deployments should only
-need to specify new or changing configuration.
-
-You will need to specify the stage name (`UMF_STACK_stage`) either via `.env` or environment
-variable in order for the SSM integration to work.
-
 If you make any configuration change to a deployment that you intend to be permanent, you
 should re-run the above command to back up the configuration to SSM.
 
-6. Deploy the App
+### Reading deployment configuration from AWS SSM
+
+To read previously saved deployment configuration from AWS SSM and save it to your local `.env`
+file:
+
+```shell
+bash scripts/ssm-to-dotenv.sh /<stage-name>/umf > .env
+```
+
+## 6. Deploy the App
 
 This step deploy the application stack.
 
@@ -130,7 +132,7 @@ npm run cdk deploy -- --require-approval never
 
 This application stack contains a Postgres database, generates a Docker image for the application, configures an ECS Task Definition that uses that image, creates an ECS Service that uses that Task Definition, configures an application load balancer (ALB) to point to the ECS Service, and configures a custom DNS entry for the service.
 
-7. Undeploy (optional)
+## 7. Undeploy (optional)
 
 ```bash
 export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity | jq .Account -r)
