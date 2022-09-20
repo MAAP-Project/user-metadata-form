@@ -37,3 +37,4 @@ build-*.sh
 
 deployment/cdk.context.json
 deployment/cdk/__pycache__
+Dockerfile

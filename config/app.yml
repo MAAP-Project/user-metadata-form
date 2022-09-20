@@ -1,5 +1,5 @@
 default: &default
-  mmt_url: http://docker.for.mac.host.internal:3000/api/collections
+  mmt_url: https://mmt.dit.maap-project.org/api/collections
 
 development:
   <<: *default

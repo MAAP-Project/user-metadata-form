@@ -1,4 +1,34 @@
 class CumulusApi
+  def self.create_cumulus_provider(collection_data)
+    token = generate_token
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer #{token}"
+    }
+    body = cumulus_provider(collection_data).to_json
+    response = HTTParty.put(
+      "#{providers_url}/#{collection_data.bucket}",
+      body: body,
+      headers: headers
+    )
+    if response.code === 404
+      response = HTTParty.post(
+        providers_url,
+        body: body,
+        headers: headers
+      )
+    end
+    response
+  end
+
+  def self.cumulus_provider(collection_data)
+    return {
+      host: collection_data.bucket,
+      id: collection_data.bucket,
+      protocol: 's3'
+    }
+  end
+
   def self.create_cumulus_collection(collection_data)
     token = generate_token
     headers = {
@@ -27,7 +57,7 @@ class CumulusApi
       files: [
         {
           regex: '^(.*\\.\\w{1,})$', # make sure it has some suffix
-          sampleFileName: 'test.xyz', 
+          sampleFileName: 'test.xyz',
           bucket: 'internal',
           type: 'data'
         }
@@ -40,7 +70,8 @@ class CumulusApi
       duplicateHandling: 'replace',
       meta: {
         userAdded: true,
-        provider_path: "user-added/uploaded_objects/#{collection_data.upload_directories[0]}",
+        provider_path: collection_data.upload_directories[0],
+        provider: collection_data.bucket,
         workflow_steps: {
           sync: nil
         }
@@ -68,7 +99,11 @@ class CumulusApi
 
   def self.collections_url
     "#{ENV['CUMULUS_REST_API']}/collections"
-  end  
+  end
+
+  def self.providers_url
+    "#{ENV['CUMULUS_REST_API']}/providers"
+  end
 
   def self.auth_string
     string = "#{ENV['EARTHDATA_USERNAME']}:#{ENV['EARTHDATA_PASSWORD']}"

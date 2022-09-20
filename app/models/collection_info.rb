@@ -1,7 +1,7 @@
 class CollectionInfo < ApplicationRecord
   PERMITTED_PARAMS = [
     :title, :short_title, :version, :version_description,
-    :abstract, :status, :questionnaire_id, job_ids: [],
+    :abstract, :status, :questionnaire_id, :bucket,
     upload_directories: []
   ]
 

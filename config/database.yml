@@ -19,6 +19,7 @@ default: &default
   encoding: unicode  
   username: postgres  
   password: postgres
+  host: host.docker.internal
   pool: 5  
 
 development:

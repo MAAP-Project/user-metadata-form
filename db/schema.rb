@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_223043) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "job_ids", default: [], array: true
+    t.string "bucket", null: false
     t.string "upload_directories", default: [], array: true
     t.index ["questionnaire_id"], name: "index_collection_infos_on_questionnaire_id"
   end

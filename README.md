@@ -25,9 +25,12 @@ Once ruby and postgres is properly installed, change directory into the project 
 
 Then we need to install the gems used in the project, prepare the database etc.
 
-1. `bundle install`
-2. `bundle exec rails db:create`
-3. `bundle exec rails db:migrate`
+```
+bundle install`
+bundle exec rails db:create
+bundle exec rails db:migrate
+```
+
 
 **Note:** For all of this, following assumptions are made:
 
@@ -37,6 +40,14 @@ Then we need to install the gems used in the project, prepare the database etc.
 Once the migration is complete, check configuration by starting the server. Start the server by entering `rails s` in a terminal. This will start the server at port 2998. Go to your browser, navigate to `localhost:2998`. You should be able to see the following page:
 
 ![screenshot_home.jpg](./images/screenshot_home.png)
+
+## Running Docker locally
+
+```
+cp deployment/Dockerfile .
+docker build . -t umf
+docker run --env-file .env -p 2998:2998 --entrypoint bash -it umf
+```
 
 ## Deployment
 
