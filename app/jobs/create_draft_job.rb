@@ -12,10 +12,10 @@ class CreateDraftJob < ApplicationJob
     # Create the Cumulus collection
     collection_info = questionnaire.collection_info
     cumulus_provider_response = CumulusApi.create_cumulus_provider(collection_info)
-    Rails.logger.info "Created Cumulus provider for #{questionnaire.uid}: #{cumulus_provider_response}"
+    Rails.logger.info "Created or updated Cumulus provider for #{questionnaire.uid}: #{cumulus_provider_response}"
 
     cumulus_collection_response = CumulusApi.create_cumulus_collection(collection_info)
-    Rails.logger.info "Created Cumulus collection for #{questionnaire.uid}: #{cumulus_collection_response}"
+    Rails.logger.info "Created or updated Cumulus collection for #{questionnaire.uid}: #{cumulus_collection_response}"
 
     output = view.render(
         file: '_questionnaire_details.json.jbuilder',

@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  host: host.docker.internal
+  #host: host.docker.internal
   database: umf_development
 
   # The specified database role being used to connect to postgres.

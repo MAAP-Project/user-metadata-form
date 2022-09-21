@@ -32,6 +32,8 @@ json.collection_info do
     json.version_description collection_info&.version_description
     json.abstract collection_info&.abstract
     json.bucket collection_info&.bucket
+    json.path collection_info&.path
+    json.filename_regex collection_info&.filename_regex
 end
 
 json.project do

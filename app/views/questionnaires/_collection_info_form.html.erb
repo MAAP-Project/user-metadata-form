@@ -38,9 +38,22 @@
     </div>
     <div class='form-row'>
       <div class='col-md-12'>
-        <%= f.input :upload_directories, label: 'Upload Directory', hint: 'If you uploaded data directly, please add the unique upload directory ID', as: :array %>
+        <%= f.input :path, label: 'Path', hint: 'Path in the bucket where data is stored.' %>
       </div>
     </div>
+    <div class='col-md-12'>
+      <p>To find files to publish as part of your collection, the system will search for files using a regular expression or prefix that you declare below.
+      You only need to include either a filename prefix or regex (not both).</p>
+    </div>
+    <div class='form-row'>
+      <div class='col-md-5'>
+        <%= f.input :filename_regex, label: 'Filename Regex', hint: 'Files must match this regular expression to be published.' %>
+      </div>
+      <div class='col-md-1'></div>
+      <div class='col-md-5'>
+        <%= f.input :filename_prefix, label: 'Filename Prefix', hint: 'Files must include this prefix to be published.' %>
+      </div>
+    </div>    
     <div class='form-row col-md-12'>
     <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
     </div>

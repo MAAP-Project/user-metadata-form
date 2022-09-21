@@ -33,11 +33,11 @@ class CumulusApi
   end
 
   def self.create_cumulus_provider(collection_data)
-    self.create_cumulus_resource('provider', **collection_data)
+    self.create_cumulus_resource('provider', collection_data)
   end
 
   def self.create_cumulus_collection(collection_data)
-    self.create_cumulus_resource('collection', **collection_data)
+    self.create_cumulus_resource('collection', collection_data)
   end
 
   def self.cumulus_provider(collection_data)
@@ -49,11 +49,20 @@ class CumulusApi
   end
 
   def self.cumulus_collection(collection_data)
+    if collection_data.filename_regex != nil
+      regex = collection_data.filename_regex
+      # Not sure what this should be
+      granuleIdExtraction = "^(#{collection_data.filename_regex}.+)$"
+    elsif collection_data.filename_prefix != nil
+      regex = "^.+#{collection_data.filename_prefix}(.*\\.\\w{1,})$",
+      granuleIdExtraction = "^(#{collection_data.filename_prefix}.+)$"     
+    end
+  
     return {
       version: collection_data.version,
       files: [
         {
-          regex: '^(.*\\.\\w{1,})$', # make sure it has some suffix
+          regex: regex, # make sure it has some suffix
           sampleFileName: 'test.xyz',
           bucket: 'internal',
           type: 'data'
@@ -61,13 +70,13 @@ class CumulusApi
       ],
       name: collection_data.short_title,
       sampleFileName: 'test.xyz',
-      granuleIdExtraction: '^(.+)$',
+      granuleIdExtraction: granuleIdExtraction,
       granuleId: '^.+$',
       dataType: collection_data.short_title,
       duplicateHandling: 'replace',
       meta: {
         userAdded: true,
-        provider_path: collection_data.upload_directories[0],
+        provider_path: collection_data.path,
         provider: collection_data.bucket,
         workflow_steps: {
           sync: nil
