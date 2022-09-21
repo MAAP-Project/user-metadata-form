@@ -1,24 +1,43 @@
 class CumulusApi
-  def self.create_cumulus_provider(collection_data)
+  def self.create_cumulus_resource(resource, collection_data)
     token = generate_token
     headers = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer #{token}"
     }
-    body = cumulus_provider(collection_data).to_json
+    case resource
+    when 'provider'
+      body = cumulus_provider(collection_data).to_json
+      cumulus_put_endpoint = "#{providers_url}/#{collection_data.bucket}"
+      cumulus_post_endpoint = providers_url
+    when 'collection'
+      body = cumulus_collection(collection_data).to_json
+      cumulus_put_endpoint = "#{collections_url}/#{collection_data.short_title}/#{collection_data.version}"
+      cumulus_post_endpoint = collections_url
+    else
+      throw 'Resource type not supported'
+    end
     response = HTTParty.put(
-      "#{providers_url}/#{collection_data.bucket}",
+      cumulus_put_endpoint,
       body: body,
       headers: headers
     )
     if response.code === 404
       response = HTTParty.post(
-        providers_url,
+        cumulus_post_endpoint,
         body: body,
         headers: headers
       )
     end
     response
+  end
+
+  def self.create_cumulus_provider(collection_data)
+    self.create_cumulus_resource('provider', **collection_data)
+  end
+
+  def self.create_cumulus_collection(collection_data)
+    self.create_cumulus_resource('collection', **collection_data)
   end
 
   def self.cumulus_provider(collection_data)
@@ -27,28 +46,6 @@ class CumulusApi
       id: collection_data.bucket,
       protocol: 's3'
     }
-  end
-
-  def self.create_cumulus_collection(collection_data)
-    token = generate_token
-    headers = {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer #{token}"
-    }
-    body = cumulus_collection(collection_data).to_json
-    response = HTTParty.put(
-      "#{collections_url}/#{collection_data.short_title}/#{collection_data.version}",
-      body: body,
-      headers: headers
-    )
-    if response.code === 404
-      response = HTTParty.post(
-        collections_url,
-        body: body,
-        headers: headers
-      )
-    end
-    response
   end
 
   def self.cumulus_collection(collection_data)

@@ -19,11 +19,11 @@ default: &default
   encoding: unicode  
   username: postgres  
   password: postgres
-  host: host.docker.internal
   pool: 5  
 
 development:
   <<: *default
+  host: host.docker.internal
   database: umf_development
 
   # The specified database role being used to connect to postgres.
