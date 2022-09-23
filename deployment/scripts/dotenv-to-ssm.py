@@ -32,7 +32,7 @@ def load(dotenv_file: click.Path, prefix: click.Path, **kwargs):
     print(prefix)
 
     for k, v in config.items():
-        path = Path(prefix) / k.lower()
+        path = Path(prefix) / k.upper()
         try:
             client.put_parameter(
                 Name=str(path),

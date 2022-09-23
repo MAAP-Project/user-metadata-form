@@ -138,6 +138,8 @@ class UmfStack(core.Stack):
             self, f"/{stack_id}/EARTHDATA_USERNAME")
         task_env["CUMULUS_REST_API"] = ssm.StringParameter.value_for_string_parameter(
             self, f"/{stack_id}/CUMULUS_REST_API")
+        task_env["CERTIFICATE_ARN"] = ssm.StringParameter.value_for_string_parameter(
+            self, f"/{stack_id}/CERTIFICATE_ARN")
 
         secret_earthdata_password = ssm.StringParameter.from_secure_string_parameter_attributes(
             self, id=f"/{stack_id}/EARTHDATA_PASSWORD", parameter_name=f"/{stack_id}/EARTHDATA_PASSWORD", version=1)
@@ -169,11 +171,13 @@ class UmfStack(core.Stack):
             logging=ecs.LogDrivers.aws_logs(stream_prefix=stack_id)
         )
 
-        if settings.certificate_arn:
+        certificate = None
+        certificate_arn = settings.certificate_arn
+        if certificate_arn != None:
             certificate=certificatemanager.Certificate.from_certificate_arn(
                 self,
-                f"mmt-{settings.stage}-certificate",
-                settings.certificate_arn
+                f"questionnaire.{settings.stage}.maap-project.org",
+                certificate_arn
             )
 
         fargate_service = ecs_patterns.ApplicationLoadBalancedFargateService(
