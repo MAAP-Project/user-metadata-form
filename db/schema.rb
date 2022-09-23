@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2022_09_21_174034) do
     t.string "bucket"
     t.string "path"
     t.string "filename_prefix"
-    t.string "filename_regex"
     t.index ["questionnaire_id"], name: "index_collection_infos_on_questionnaire_id"
   end
 

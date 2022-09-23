@@ -33,7 +33,7 @@ json.collection_info do
     json.abstract collection_info&.abstract
     json.bucket collection_info&.bucket
     json.path collection_info&.path
-    json.filename_regex collection_info&.filename_regex
+    json.filename_prefix collection_info&.filename_prefix
 end
 
 json.project do

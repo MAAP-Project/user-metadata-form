@@ -2,15 +2,19 @@ require 'test_helper'
 require 'collection_info'
 
 class CumulusApiTest < ActiveSupport::TestCase
+    def collection_shortname
+       return 'local_testing_1A'
+    end
     def test_collection_info
         return CollectionInfo.create({
-            title: "Local Testing",
-            short_title: "local_testing",
+            title: "Local Testing 1A",
+            short_title: collection_shortname,
             version: "001",
             version_description: "",
             abstract: "N/A",
             bucket: "maap-dit-workspace",
-            path: "aimeeb"
+            path: "aimeeb",
+            filename_prefix: collection_shortname
         })
     end
     
@@ -23,10 +27,34 @@ class CumulusApiTest < ActiveSupport::TestCase
 
     test 'should create a valid collection object' do
         collection = CumulusApi.cumulus_collection(test_collection_info)
-        assert_equal(collection[:meta][:provider_path], 'aimeeb')
-        assert_equal(collection[:files][0][:regex], nil)
-        assert_equal(collection[:name], 'local_testing')
-        assert_equal(collection[:granuleIdExtraction], nil)
-
+        assert_equal(collection[:name], collection_shortname)
+        assert_equal(collection[:files][0][:regex], "^(local_testing_1A.+)\\..+")
+        assert_equal(collection[:granuleIdExtraction], "^(local_testing_1A.+)\\..+")
+        assert_equal(collection[:granuleId], "^local_testing_1A[^.]+$")
+        meta = {
+            userAdded: true,
+            provider: 'maap-dit-workspace',
+            provider_path: 'aimeeb',
+            workflow_steps: {
+                sync: nil
+            }
+        }
+        assert_equal(collection[:meta], meta)
     end
+
+    test 'file_regex produced from shortname should match the file in any file path and extract the right granule ID' do
+        filename = "#{collection_shortname}_foo_bar.baz"
+        regex_str = CumulusApi.file_regex(collection_shortname)
+        regex = Regexp.new(regex_str)
+        matches = filename.match(regex)
+        assert_equal(matches[1], "#{collection_shortname}_foo_bar")
+    end
+
+    test 'if file prefix is none, will still return a regex' do
+        filename = "foo_bar.baz"
+        regex_str = CumulusApi.file_regex(nil)
+        regex = Regexp.new(regex_str)
+        matches = filename.match(regex)
+        assert_equal(matches[1], "foo_bar")
+    end        
 end
