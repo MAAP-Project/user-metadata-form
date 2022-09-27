@@ -55,10 +55,9 @@ Running the application using docker is a closer approximation to how the applic
 
 ```bash
 docker build -f deployment/Dockerfile -t umf .
-docker run --env-file .env \
+docker run --rm --env-file .env \
   --env DATABASE_HOST=host.docker.internal \
-  -p 2998:2998 -it umf
-```
+  -p 2998:2998 -t umf
 
 ## Deployment
 
