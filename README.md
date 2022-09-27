@@ -51,7 +51,7 @@ This will start the server at port 2998. Go to your browser, navigate to `localh
 
 ## Run the app in a docker container
 
-Running the application using docker is a closer approximation to how the application will run in a cloud environment. It isolates the environment used to build and run the application. The application is deployed by creating and publishing a docker image to AWS Elastic Container Registry (ECR) and then the application is run as a docker container within an ECS Task.
+Running the application using docker is a closer approximation to how the application will run in a cloud environment. It isolates the environment used to build and run the application. The application is deployed by creating a docker image and publishing it to AWS Elastic Container Registry (ECR). Then the application is run as a docker container within an ECS Task.
 
 ```bash
 docker build -f deployment/Dockerfile -t umf .
