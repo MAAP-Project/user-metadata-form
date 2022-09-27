@@ -31,7 +31,10 @@ Update `.env` with the parameters for calling the Cumulus API (CUMULUS_REST_API,
 
 ### Run the app on your development machine
 
-Once ruby and postgres is properly installed, change directory into the project folder if you have not already. `cd user-metadata-form`.
+Once ruby and postgres are properly installed, change directory into the project folder if you have not already:
+
+```bash
+cd user-metadata-form
 
 Then we need to install the gems used in the project, prepare the database etc.
 
