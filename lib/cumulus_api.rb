@@ -61,7 +61,7 @@ class CumulusApi
         {
           regex: regex, # make sure it has some suffix
           sampleFileName: sampleFileName,
-          bucket: 'internal',
+          bucket: 'data',
           type: 'data'
         }
       ],
