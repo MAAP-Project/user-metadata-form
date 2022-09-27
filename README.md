@@ -17,7 +17,17 @@ Before moving into installing all the gems used, please make sure that you have 
 
 After ruby is installed, install `bundler` using `gem install bundler` in your terminal. Bundler is a package (gem) manager for ruby. You can read about it at [Bundlers' website](https://bundler.io/) .
 
-We use postgres as our database. If your machine doesn't have postgres installed, please do so. You can follow [Postgres installation guide](https://wiki.postgresql.org/wiki/Detailed_installation_guides) .
+We use postgres as our database. If your machine doesn't have postgres installed, please do so. You can follow [Postgres installation guide](https://wiki.postgresql.org/wiki/Detailed_installation_guides).
+
+### Configure environment variables
+
+You will need a few environment variables to configure the application to call Cumulus. Create a copy of `example.env`:
+
+```bash
+cp example.env .env
+```
+
+Update `.env` with the parameters for calling the Cumulus API (CUMULUS_REST_API, EARTHDATA_USERNAME and EARTHDATA_PASSWORD).
 
 ### Run the app on your development machine
 
@@ -29,14 +39,13 @@ Then we need to install the gems used in the project, prepare the database etc.
 bundle install
 bundle exec rails db:create
 bundle exec rails db:migrate
+# Wait for the migration to complete.
+# Source environment variables used to call Cumulus.
+source .env
+bundle exec rails s
 ```
 
-**Note:** For all of this, following assumptions are made:
-
-1. The postgres user has create, and modify privileges.
-2. Postgres is running in the background.
-
-Once the migration is complete, check configuration by starting the server. Start the server by entering `bundle exec rails s` in a terminal. This will start the server at port 2998. Go to your browser, navigate to `localhost:2998`. You should be able to see the following page:
+This will start the server at port 2998. Go to your browser, navigate to `localhost:2998`. You should be able to see the following page:
 
 ![screenshot_home.jpg](./images/screenshot_home.png)
 
