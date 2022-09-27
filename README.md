@@ -43,8 +43,6 @@ bundle install
 bundle exec rails db:create
 bundle exec rails db:migrate
 # Wait for the migration to complete.
-# Source environment variables used to call Cumulus.
-source .env
 bundle exec rails s
 ```
 
