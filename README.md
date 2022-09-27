@@ -31,6 +31,8 @@ Update `.env` with the parameters for calling the Cumulus API (CUMULUS_REST_API,
 
 ### Run the app on your development machine
 
+#### NOTE: You can run the app on your development machine OR with docker, see those instructions in the next section.
+
 Once ruby and postgres are properly installed, change directory into the project folder if you have not already:
 
 ```bash
