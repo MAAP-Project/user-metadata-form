@@ -33,14 +33,17 @@
     </div>
     <div class='form-row'>
       <div class='col-md-12'>
-        <%= f.input :job_ids, label: 'Job ID', hint: 'If your data was produced using the MAAP Data Processing System, please enter any corresponding Job ID.', as: :array %>
+        <%= f.input :bucket, label: 'Bucket', hint: 'Bucket where your data is stored.' %>
       </div>
     </div>
     <div class='form-row'>
       <div class='col-md-12'>
-        <%= f.input :upload_directories, label: 'Upload Directory', hint: 'If you uploaded data directly, please add the unique upload directory ID', as: :array %>
+        <%= f.input :path, label: 'Path', hint: 'Path in the bucket where data is stored.' %>
       </div>
     </div>
+    <div class='col-md-12'>
+      <%= f.input :filename_prefix, label: 'Filename Prefix', hint: 'Files must include this prefix to be published.' %>
+    </div>    
     <div class='form-row col-md-12'>
     <%= render 'form_footer', questionnaire: questionnaire, previous_partial: previous_partial, form: f %>
     </div>

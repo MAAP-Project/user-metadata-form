@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_14_223043) do
+ActiveRecord::Schema.define(version: 2022_09_21_174034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 2019_08_14_223043) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "job_ids", default: [], array: true
-    t.string "upload_directories", default: [], array: true
+    t.string "bucket"
+    t.string "path"
+    t.string "filename_prefix"
     t.index ["questionnaire_id"], name: "index_collection_infos_on_questionnaire_id"
   end
 

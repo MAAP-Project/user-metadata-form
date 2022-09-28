@@ -1,19 +1,30 @@
 class CumulusApi
-  def self.create_cumulus_collection(collection_data)
+  def self.create_cumulus_resource(resource, collection_data)
     token = generate_token
     headers = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer #{token}"
     }
-    body = cumulus_collection(collection_data).to_json
+    case resource
+    when 'provider'
+      body = cumulus_provider(collection_data).to_json
+      cumulus_put_endpoint = "#{providers_url}/#{collection_data.bucket}"
+      cumulus_post_endpoint = providers_url
+    when 'collection'
+      body = cumulus_collection(collection_data).to_json
+      cumulus_put_endpoint = "#{collections_url}/#{collection_data.short_title}/#{collection_data.version}"
+      cumulus_post_endpoint = collections_url
+    else
+      throw 'Resource type not supported'
+    end
     response = HTTParty.put(
-      "#{collections_url}/#{collection_data.short_title}/#{collection_data.version}",
+      cumulus_put_endpoint,
       body: body,
       headers: headers
     )
     if response.code === 404
       response = HTTParty.post(
-        collections_url,
+        cumulus_post_endpoint,
         body: body,
         headers: headers
       )
@@ -21,26 +32,52 @@ class CumulusApi
     response
   end
 
+  def self.create_cumulus_provider(collection_data)
+    self.create_cumulus_resource('provider', collection_data)
+  end
+
+  def self.create_cumulus_collection(collection_data)
+    self.create_cumulus_resource('collection', collection_data)
+  end
+
+  def self.cumulus_provider(collection_data)
+    return {
+      host: collection_data.bucket,
+      id: collection_data.bucket,
+      protocol: 's3'
+    }
+  end
+
+  def self.file_regex(filename_prefix)
+    return "^(#{filename_prefix}.+)\\..+"
+  end
+
   def self.cumulus_collection(collection_data)
+    regex = self.file_regex(collection_data.filename_prefix)
+    sampleFileName = "#{collection_data.filename_prefix}_exampleid.xyz"
     return {
       version: collection_data.version,
       files: [
         {
-          regex: '^(.*\\.\\w{1,})$', # make sure it has some suffix
-          sampleFileName: 'test.xyz', 
-          bucket: 'internal',
+          regex: regex, # make sure it has some suffix
+          sampleFileName: sampleFileName,
+          bucket: 'data',
           type: 'data'
         }
       ],
       name: collection_data.short_title,
-      sampleFileName: 'test.xyz',
-      granuleIdExtraction: '^(.+)$',
-      granuleId: '^.+$',
-      dataType: collection_data.short_title,
+      sampleFileName: sampleFileName,
+      # we want to make this more flexible in the future
+      # Right now it assumes all use cases will be ok with having the prefix as a part of the granuleId
+      granuleIdExtraction: regex,
+      # granuleId should be the prefix plus anything except a period punctuation
+      granuleId: "^#{collection_data.filename_prefix}[^\.]+$",
+      # default is 'error', should it be replace?
       duplicateHandling: 'replace',
       meta: {
         userAdded: true,
-        provider_path: "user-added/uploaded_objects/#{collection_data.upload_directories[0]}",
+        provider: collection_data.bucket,
+        provider_path: collection_data.path,
         workflow_steps: {
           sync: nil
         }
@@ -68,7 +105,11 @@ class CumulusApi
 
   def self.collections_url
     "#{ENV['CUMULUS_REST_API']}/collections"
-  end  
+  end
+
+  def self.providers_url
+    "#{ENV['CUMULUS_REST_API']}/providers"
+  end
 
   def self.auth_string
     string = "#{ENV['EARTHDATA_USERNAME']}:#{ENV['EARTHDATA_PASSWORD']}"

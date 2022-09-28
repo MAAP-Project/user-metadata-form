@@ -11,7 +11,7 @@ json.collection_info do
     json.version collection_info&.version
     json.version_description collection_info&.version_description
     json.abstract collection_info&.abstract
-    json.job_ids collection_info&.job_ids
+    json.bucket collection_info&.bucket
 end
 
 json.contact do
