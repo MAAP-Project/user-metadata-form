@@ -54,11 +54,14 @@ This will start the server at port 2998. Go to your browser, navigate to `localh
 
 ## Run the app in a docker container
 
+🚧 NOTE: This section is a WIP, there is currently an error connecting with a local Postgres database. 🚧
+
 Running the application using docker is a closer approximation to how the application will run in a cloud environment. It isolates the environment used to build and run the application. The application is deployed by creating a docker image and publishing it to AWS Elastic Container Registry (ECR). Then the application is run as a docker container within an ECS Task.
 
 ```bash
 docker build -f deployment/Dockerfile -t umf .
 docker run --rm --env-file .env \
+  -it --entrypoint /bin/bash \
   --env DATABASE_HOST=host.docker.internal \
   -p 2998:2998 -t umf
 
