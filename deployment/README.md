@@ -56,7 +56,7 @@ You can check by navigating to `AWS Console -> Systems Manager -> Parameter Stor
 To populate OR backup configuration from `.env` to SSM (where `<stage-name>` is `production`, `dit`, etc and should match the `UMF_STACK_stage` for your deployment):
 
 ```shell
-python scripts/dotenv-to-ssm.py .env /${UMF_STACK_STAGE}-umf
+python scripts/dotenv-to-ssm.py .env /${UMF_STACK_STAGE}-maap-umf
 ```
 
 If you make any configuration change to a deployment that you intend to be permanent, you
