@@ -58,23 +58,11 @@ class UmfStack(core.Stack):
         else:
             vpc = ec2.Vpc(self, f"{stack_id}-vpc")
 
-        db_admin_credentials_secret = rds.DatabaseSecret(
-            self, f"/{stack_id}/UMF_STACK_AdminDBCredentials", username="postgres")
-        task_env_secret = secretsmanager.Secret(self, "/dit-umf/task-env-vars")
-
-        core.CfnOutput(self, "AdminDBCredentialsSecretName",
-                       value=db_admin_credentials_secret.secret_name)
-        core.CfnOutput(self, "AdminDBCredentialsSecretARN",
-                       value=db_admin_credentials_secret.secret_arn)
-
         db_username = "umf"
-        db_credentials_secret = rds.DatabaseSecret(
-            self, f"/{stack_id}/UMF_STACK_AppDBCredentials", username=db_username)
-
-        core.CfnOutput(self, "AppDBCredentialsSecretName",
-                       value=db_credentials_secret.secret_name)
-        core.CfnOutput(self, "AppDBCredentialsSecretARN",
-                       value=db_credentials_secret.secret_arn)
+        db_admin_credentials_secret = rds.DatabaseSecret.from_secret_name_v2(
+            self, settings.admin_db_credentials, settings.admin_db_credentials)
+        db_credentials_secret = rds.DatabaseSecret.from_secret_name_v2(
+            self, settings.app_db_credentials, settings.app_db_credentials)
 
         ingress_sg = ec2.SecurityGroup(self, f"{stack_id}-rds-ingress",
                                        vpc=vpc,
@@ -98,8 +86,7 @@ class UmfStack(core.Stack):
             security_groups=[ingress_sg],
             engine=rds.DatabaseInstanceEngine.postgres(
                 version=rds.PostgresEngineVersion.VER_12_8),
-            credentials=rds.Credentials.from_secret(
-                db_admin_credentials_secret),
+            credentials=rds.Credentials.from_secret(db_admin_credentials_secret),
             port=5432,
             instance_type=ec2.InstanceType.of(
                 ec2.InstanceClass.BURSTABLE2,
