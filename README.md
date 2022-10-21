@@ -37,6 +37,7 @@ Once ruby and postgres are properly installed, change directory into the project
 
 ```bash
 cd user-metadata-form
+```
 
 Then we need to install the gems used in the project, prepare the database etc.
 
@@ -64,6 +65,7 @@ docker run --rm --env-file .env \
   -it --entrypoint /bin/bash \
   --env DATABASE_HOST=host.docker.internal \
   -p 2998:2998 -t umf
+```
 
 ## Deployment
 
