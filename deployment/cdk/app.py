@@ -1,6 +1,5 @@
 """Construct App."""
 
-from ensurepip import version
 import os
 from os import path
 from typing import Any, List, Optional, Union
@@ -17,8 +16,7 @@ from aws_cdk import (
     aws_iam as iam,
     aws_elasticloadbalancingv2 as elb,
     aws_ssm as ssm,
-    aws_certificatemanager as certificatemanager,
-    aws_secretsmanager as secretsmanager
+    aws_certificatemanager as certificatemanager
 )
 
 settings = StackSettings()
@@ -58,11 +56,22 @@ class UmfStack(core.Stack):
         else:
             vpc = ec2.Vpc(self, f"{stack_id}-vpc")
 
+        db_admin_credentials_secret = rds.DatabaseSecret(
+            self, f"/{stack_id}/AdminDBCredentials", username="postgres")
+
+        core.CfnOutput(self, "AdminDBCredentialsSecretName",
+                       value=db_admin_credentials_secret.secret_name)
+        core.CfnOutput(self, "AdminDBCredentialsSecretARN",
+                       value=db_admin_credentials_secret.secret_arn)
+
         db_username = "umf"
-        db_admin_credentials_secret = rds.DatabaseSecret.from_secret_name_v2(
-            self, settings.admin_db_credentials, settings.admin_db_credentials)
-        db_credentials_secret = rds.DatabaseSecret.from_secret_name_v2(
-            self, settings.app_db_credentials, settings.app_db_credentials)
+        db_credentials_secret = rds.DatabaseSecret(
+            self, f"/{stack_id}/AppDBCredentials", username=db_username)
+
+        core.CfnOutput(self, "AppDBCredentialsSecretName",
+                       value=db_credentials_secret.secret_name)
+        core.CfnOutput(self, "AppDBCredentialsSecretARN",
+                       value=db_credentials_secret.secret_arn)
 
         ingress_sg = ec2.SecurityGroup(self, f"{stack_id}-rds-ingress",
                                        vpc=vpc,
@@ -86,7 +95,8 @@ class UmfStack(core.Stack):
             security_groups=[ingress_sg],
             engine=rds.DatabaseInstanceEngine.postgres(
                 version=rds.PostgresEngineVersion.VER_12_8),
-            credentials=rds.Credentials.from_secret(db_admin_credentials_secret),
+            credentials=rds.Credentials.from_secret(
+                db_admin_credentials_secret),
             port=5432,
             instance_type=ec2.InstanceType.of(
                 ec2.InstanceClass.BURSTABLE2,
@@ -124,11 +134,17 @@ class UmfStack(core.Stack):
         task_env["DATABASE_NAME"] = "umf"
         task_env["DATABASE_USERNAME"] = db_username
 
-        task_env["EARTHDATA_USERNAME"] = ssm.StringParameter.value_for_string_parameter(self, f"/{stack_id}/EARTHDATA_USERNAME")
-        task_env["CUMULUS_REST_API"] = ssm.StringParameter.value_for_string_parameter(self, f"/{stack_id}/CUMULUS_REST_API")
-        
-        secret_earthdata_password = ssm.StringParameter.from_secure_string_parameter_attributes(self, id=f"/{stack_id}/EARTHDATA_PASSWORD", parameter_name=f"/{stack_id}/EARTHDATA_PASSWORD", version=5)
-        secret_secret_key_base = ssm.StringParameter.from_secure_string_parameter_attributes(self, id=f"/{stack_id}/SECRET_KEY_BASE", parameter_name=f"/{stack_id}/SECRET_KEY_BASE", version=1)
+        task_env["EARTHDATA_USERNAME"] = ssm.StringParameter.value_for_string_parameter(
+            self, f"/{stack_id}/EARTHDATA_USERNAME")
+        task_env["CUMULUS_REST_API"] = ssm.StringParameter.value_for_string_parameter(
+            self, f"/{stack_id}/CUMULUS_REST_API")
+        task_env["CERTIFICATE_ARN"] = ssm.StringParameter.value_for_string_parameter(
+            self, f"/{stack_id}/CERTIFICATE_ARN")
+
+        secret_earthdata_password = ssm.StringParameter.from_secure_string_parameter_attributes(
+            self, id=f"/{stack_id}/EARTHDATA_PASSWORD", parameter_name=f"/{stack_id}/EARTHDATA_PASSWORD", version=1)
+        secret_secret_key_base = ssm.StringParameter.from_secure_string_parameter_attributes(
+            self, id=f"/{stack_id}/SECRET_KEY_BASE", parameter_name=f"/{stack_id}/SECRET_KEY_BASE", version=1)
 
         task_definition = ecs.FargateTaskDefinition(self, f"{stack_id}-task-definition",
                                                     cpu=cpu, memory_limit_mib=memory)
@@ -220,8 +236,6 @@ for key, value in {
     if value:
         core.Tags.of(app).add(key, value)
 
-print("STACK ID IS:")
-print(f"{settings.stage}-{settings.name}")
 UmfStack(
     scope=app,
     stack_id=f"{settings.stage}-{settings.name}",

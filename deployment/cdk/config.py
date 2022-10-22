@@ -1,6 +1,5 @@
 """UMF Stack Configs."""
 
-from optparse import Option
 from typing import Optional
 
 import pydantic
@@ -23,15 +22,9 @@ class StackSettings(pydantic.BaseSettings):
     # Necessary for HTTPS load balancer
     certificate_arn: str
 
-    # For MCP deployments
+    # For GCC deployments
     permissions_boundary_name: Optional[str]
-
-    # For repeat deployments
     vpc_id: Optional[str]
-
-    # DB credentials
-    admin_db_credentials: str
-    app_db_credentials: str
 
     class Config():
         """model config"""

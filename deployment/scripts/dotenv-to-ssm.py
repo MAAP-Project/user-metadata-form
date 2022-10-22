@@ -22,7 +22,7 @@ client = boto3.client("ssm")
 @click.option(
     "--type",
     "Type",
-    default="String",
+    default="SecureString",
     type=click.Choice(["String", "StringList", "SecureString"], case_sensitive=False),
     help="The type of parameter that you want to add to the system.",
 )
@@ -31,7 +31,6 @@ def load(dotenv_file: click.Path, prefix: click.Path, **kwargs):
 
     print(prefix)
 
-    # TODO(Aimee): a few parameters should be stored as secure strings.
     for k, v in config.items():
         path = Path(prefix) / k.upper()
         try:
