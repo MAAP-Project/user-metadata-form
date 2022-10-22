@@ -49,7 +49,9 @@ bash scripts/ssm-to-dotenv.sh /${UMF_STACK_STAGE}-umf > .env
 
 ## 3. Populate Secrets and Parameters
 
-First, check if secrets have been populated in AWS Secrets Manager.
+If you are creating a new environment, you can use `env.example` to create a new example `.env` file.
+
+If you are deploying to an existing environment, secrets should have been saved to AWS Secrets Manager.
 
 You can check by navigating to `AWS Console -> Systems Manager -> Parameter Store`. Set the `UMF_STACK_STAGE` variable to the appropriate stage, e.g., `dit`.
 
