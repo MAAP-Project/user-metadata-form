@@ -67,7 +67,6 @@ docker run --rm --env-file .env \
   -p 2998:2998 -t umf
 ```
 
-
 ## Deployment
 
 See [deployment/README.md](./deployment/README.md).
